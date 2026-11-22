@@ -1,0 +1,80 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  name          String?
+  image         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  clothingItems ClothingItem[]
+  outfits       Outfit[]
+
+  @@map("users")
+}
+
+model ClothingItem {
+  id          String       @id @default(uuid())
+  userId      String
+  name        String
+  imageUrl    String
+  type        String       @default("Apparel")
+  category    String       // "tops", "bottoms", "footwear", "outerwear", "ethnic", "accessories"
+  colors      String[]
+  colorHex    String?
+  occasions   String[]     // "gym", "work", "party", "casual", "wedding"
+  season      String       @default("all-season")
+  brand       String?
+  price       Float?       @default(0)
+  timesWorn   Int          @default(0)
+  isClean     Boolean      @default(true)
+  isFavorite  Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outfitItems OutfitItem[]
+
+  @@index([userId])
+  @@map("clothing_items")
+}
+
+model Outfit {
+  id          String       @id @default(uuid())
+  userId      String
+  occasion    String       // "gym", "work", "party", "casual"
+  title       String?
+  aiReasoning String?      @db.Text
+  matchScore  Int?         @default(95)
+  isLiked     Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outfitItems OutfitItem[]
+
+  @@index([userId])
+  @@map("outfits")
+}
+
+model OutfitItem {
+  id             String       @id @default(uuid())
+  outfitId       String
+  clothingItemId String
+  slotRole       String?      // "top", "bottom", "footwear", "outerwear"
+  createdAt      DateTime     @default(now())
+
+  outfit         Outfit       @relation(fields: [outfitId], references: [id], onDelete: Cascade)
+  clothingItem   ClothingItem @relation(fields: [clothingItemId], references: [id], onDelete: Cascade)
+
+  @@unique([outfitId, clothingItemId])
+  @@map("outfit_items")
+}
