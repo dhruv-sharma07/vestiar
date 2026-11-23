@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useMemo } from "react";
 import Image from "next/image";
-import { CuratedItem } from "@/lib/curated-wardrobe";
+import { CuratedItem, formatRupees } from "@/lib/curated-wardrobe";
 import { Maximize2, Sparkles, Tag, ChevronRight } from "lucide-react";
 
 interface AnatomicalMannequinProps {
@@ -221,16 +221,16 @@ export function AnatomicalMannequin({
           <div className="w-32 h-6 rounded-full border border-[rgba(232,145,60,0.4)] bg-[rgba(232,145,60,0.05)] mb-2" />
         </div>
 
-        {/* Header Label: 3D Stage Indicator */}
+        {/* Header Label: Outfit Silhouette Indicator */}
         <div className="relative z-10 mb-6 flex items-center justify-between w-full px-2">
           <div className="flex items-center gap-2">
             <span className="flex h-2 w-2 rounded-full bg-[#E8913C] animate-pulse" />
             <span className="text-[11px] font-mono uppercase tracking-widest text-[#E8913C]">
-              Anatomical 3D Fit
+              Head-to-Toe View
             </span>
             <span className="text-xs text-[#9EA5A8]">&bull;</span>
             <span className="text-xs text-[#9EA5A8] hidden sm:inline">
-              Natural Head-to-Toe Silhouette
+              Complete Outfit Breakdown
             </span>
           </div>
           <span className="text-[11px] text-[#9EA5A8] bg-[#101317] px-2.5 py-1 rounded-md border border-[rgba(237,231,220,0.13)]">
@@ -286,7 +286,7 @@ export function AnatomicalMannequin({
                     <div className="mt-0.5 flex items-center gap-3 text-xs text-[#9EA5A8]">
                       <span>{item.brand}</span>
                       <span>&bull;</span>
-                      <span className="font-mono text-[#EDE7DC]">${item.price}</span>
+                      <span className="font-mono text-[#E8913C]">{formatRupees(item.price)}</span>
                     </div>
                   </div>
                 </div>
@@ -314,10 +314,10 @@ export function AnatomicalMannequin({
           })}
         </div>
 
-        {/* Bottom Mannequin Floor Base */}
+        {/* Bottom Silhouette Guide */}
         <div className="mt-8 flex items-center gap-2 text-[11px] font-mono text-[#9EA5A8]">
           <span className="h-[1px] w-12 bg-[rgba(237,231,220,0.15)]" />
-          <span>PROPORTIONAL 3D BALANCE</span>
+          <span>MATCHED ENSEMBLE</span>
           <span className="h-[1px] w-12 bg-[rgba(237,231,220,0.15)]" />
         </div>
       </div>

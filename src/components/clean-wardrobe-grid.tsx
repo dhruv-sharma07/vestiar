@@ -2,9 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Heart, Plus, Trash2, Shirt, Layers, Eye, Orbit, LayoutGrid } from "lucide-react";
 import { useTheme } from "next-themes";
-import { CuratedItem } from "@/lib/curated-wardrobe";
+import { CuratedItem, formatRupees } from "@/lib/curated-wardrobe";
 import { TactileCard } from "@/components/tactile-card";
 import { GarmentInspectionModal } from "@/components/garment-inspection-modal";
 import { CircularGallery } from "@/components/circular-gallery";
@@ -13,7 +14,6 @@ interface CleanWardrobeGridProps {
   items: CuratedItem[];
   onLoadSamples: () => void;
   onClearSamples: () => void;
-  onScrollToUpload: () => void;
   onRemoveItem: (id: string) => void;
   isSampleActive: boolean;
 }
@@ -22,12 +22,11 @@ export function CleanWardrobeGrid({
   items,
   onLoadSamples,
   onClearSamples,
-  onScrollToUpload,
   onRemoveItem,
   isSampleActive,
 }: CleanWardrobeGridProps) {
   const [activeCategory, setActiveCategory] = useState<
-    "all" | "tops" | "bottoms" | "footwear" | "outerwear"
+    "all" | "tops" | "bottoms" | "footwear" | "outerwear" | "accessories"
   >("all");
   const [viewMode, setViewMode] = useState<"circular" | "grid">("grid");
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
@@ -35,14 +34,16 @@ export function CleanWardrobeGrid({
   const [isInspectionOpen, setIsInspectionOpen] = useState(false);
   const { resolvedTheme } = useTheme();
 
-  const galleryTextColor = resolvedTheme === "dark" ? "#F5F2EC" : "#1C1917";
-
-  const CATEGORIES: { id: "all" | "tops" | "bottoms" | "footwear" | "outerwear"; label: string }[] = [
+  const CATEGORIES: {
+    id: "all" | "tops" | "bottoms" | "footwear" | "outerwear" | "accessories";
+    label: string;
+  }[] = [
     { id: "all", label: "All Items" },
     { id: "tops", label: "Tops" },
     { id: "bottoms", label: "Bottoms" },
-    { id: "footwear", label: "Footwear" },
+    { id: "footwear", label: "Footwear & Shoes" },
     { id: "outerwear", label: "Outerwear" },
+    { id: "accessories", label: "Accessories (Muffler & Socks)" },
   ];
 
   const filteredItems = useMemo(() => {
@@ -55,7 +56,7 @@ export function CleanWardrobeGrid({
       const label = item.brand ? `${item.brand} • ${item.subCategory || item.name}` : item.name;
       return {
         image: item.imageUrl,
-        text: label.length > 22 ? label.slice(0, 20) + "…" : label,
+        text: `${label.length > 20 ? label.slice(0, 18) + "…" : label} (${formatRupees(item.price)})`,
       };
     });
   }, [filteredItems]);
@@ -65,12 +66,12 @@ export function CleanWardrobeGrid({
   };
 
   return (
-    <section id="demo-wardrobe-section" className="py-10 sm:py-14 scroll-mt-20">
+    <section id="demo-wardrobe-section" className="py-8 sm:py-12">
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
           <span className="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400">
-            Digital Closet
+            Digital Closet Archive
           </span>
           <div className="flex items-center gap-3 mt-1">
             <h2 className="text-2xl sm:text-3xl font-serif font-normal text-[#1C1917] dark:text-[#F5F2EC]">
@@ -83,7 +84,7 @@ export function CleanWardrobeGrid({
             )}
           </div>
           <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">
-            Visual catalog of your garments with fabric, brand, and occasion tags.
+            Visual catalog with editorial photography, fabric dossiers, and Rupee (₹) valuation.
           </p>
         </div>
 
@@ -183,7 +184,7 @@ export function CleanWardrobeGrid({
             Your closet is empty. Add your first item or preview a quick demo
           </h3>
           <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-2 max-w-sm mx-auto leading-relaxed">
-            Upload your first photo to begin organizing, or load 4 curated sample clothes to test occasion pairing immediately.
+            Upload your first photo to begin organizing, or load curated sample clothes (Shoes, Mufflers, Socks, Tops, Bottoms) to test occasion pairing immediately.
           </p>
 
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -192,25 +193,25 @@ export function CleanWardrobeGrid({
               className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-lg border border-[#D1DFD0] bg-[#E8EEE7] hover:bg-[#DCE6DA] text-[#2D4A34] dark:border-[#27332A] dark:bg-[#1E2E22] dark:text-[#D3E0D5] px-5 py-2.5 text-xs font-medium transition-all cursor-pointer shadow-2xs"
             >
               <Layers className="h-3.5 w-3.5 text-[#2D4A34] dark:text-[#D3E0D5]" />
-              <span>Load 4 Sample Clothes</span>
+              <span>Load Sample Clothes</span>
             </button>
 
-            <button
-              onClick={onScrollToUpload}
+            <Link
+              href="/upload"
               className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-lg bg-[#E0623A] hover:bg-[#C8532F] text-white px-5 py-2.5 text-xs font-medium transition-all shadow-xs cursor-pointer"
             >
               <Plus className="h-3.5 w-3.5" />
-              <span>Upload Photo</span>
-            </button>
+              <span>Upload Garment</span>
+            </Link>
           </div>
         </div>
       ) : viewMode === "circular" ? (
         /* 3D WebGL Circular Gallery Showcase */
-        <div className="relative w-full h-[520px] sm:h-[600px] rounded-3xl border border-[rgba(237,231,220,0.13)] bg-[#0D0F12] shadow-luxury overflow-hidden">
+        <div className="relative w-full h-[520px] sm:h-[600px] rounded-3xl border border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)] bg-[#F8F5EE] dark:bg-[#0D0F12] shadow-luxury overflow-hidden">
           <CircularGallery
             items={galleryItems}
             bend={2.6}
-            textColor="#EDE7DC"
+            textColor={resolvedTheme === "dark" ? "#EDE7DC" : "#1C1917"}
             borderRadius={0.06}
             font='500 15px "Plus Jakarta Sans", "Sora", system-ui, sans-serif'
             scrollSpeed={2.2}
@@ -258,7 +259,7 @@ export function CleanWardrobeGrid({
                     </span>
                   </div>
 
-                  {/* Favorite & Delete Buttons (Architectural rounded-md) */}
+                  {/* Favorite & Delete Buttons */}
                   <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
                     <button
                       onClick={(e) => {
@@ -288,33 +289,33 @@ export function CleanWardrobeGrid({
                   </div>
 
                   {/* Inspect hint on hover */}
-                  <div className="absolute inset-x-0 bottom-0 py-1.5 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1 text-[10px] font-medium text-white/90">
+                  <div className="absolute inset-x-0 bottom-0 py-1.5 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1 text-[10px] font-medium text-white/95">
                     <Eye className="h-3 w-3" />
                     <span>Inspect Fabric &amp; Notes</span>
                   </div>
                 </div>
 
-                {/* Minimalist Details Section */}
-                <div className="p-3.5 sm:p-4 flex flex-col flex-1 bg-[#101317]">
+                {/* Harmonious Dual-Theme Details Section (clean light & dark) */}
+                <div className="p-3.5 sm:p-4 flex flex-col flex-1 bg-white dark:bg-[#101317] border-t border-[#EAE6DF] dark:border-[rgba(237,231,220,0.1)]">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h3 className="font-medium text-xs sm:text-sm text-[#EDE7DC] line-clamp-1 group-hover:text-[#E8913C] transition-colors">
+                      <h3 className="font-medium text-xs sm:text-sm text-stone-900 dark:text-[#EDE7DC] line-clamp-1 group-hover:text-[#E0623A] dark:group-hover:text-[#E8913C] transition-colors">
                         {item.name}
                       </h3>
-                      <p className="text-[11px] text-[#9EA5A8] mt-0.5">
+                      <p className="text-[11px] text-stone-500 dark:text-[#9EA5A8] mt-0.5">
                         {item.brand} • {item.subCategory}
                       </p>
                     </div>
-                    <span className="text-xs font-semibold text-[#EDE7DC] shrink-0">
-                      ${item.price}
+                    <span className="text-xs font-semibold text-[#E0623A] dark:text-[#EDE7DC] shrink-0 font-mono">
+                      {formatRupees(item.price)}
                     </span>
                   </div>
 
                   {/* Color Dot & Occasions Footer */}
-                  <div className="mt-auto pt-3 border-t border-[rgba(237,231,220,0.1)] flex items-center justify-between text-[11px]">
-                    <div className="flex items-center gap-1.5 text-[#9EA5A8]">
+                  <div className="mt-auto pt-3 border-t border-stone-100 dark:border-[rgba(237,231,220,0.1)] flex items-center justify-between text-[11px]">
+                    <div className="flex items-center gap-1.5 text-stone-500 dark:text-[#9EA5A8]">
                       <span
-                        className="h-2.5 w-2.5 rounded-sm border border-white/10 shrink-0 shadow-2xs"
+                        className="h-2.5 w-2.5 rounded-sm border border-black/10 dark:border-white/10 shrink-0 shadow-2xs"
                         style={{ backgroundColor: item.colorHex }}
                       />
                       <span className="text-[11px] truncate max-w-[80px]">{item.colorName}</span>
@@ -324,7 +325,7 @@ export function CleanWardrobeGrid({
                       {item.occasions.slice(0, 2).map((occ) => (
                         <span
                           key={occ}
-                          className="rounded-md bg-[#181C22] border border-[rgba(237,231,220,0.1)] px-1.5 py-0.5 text-[9px] font-medium text-[#9EA5A8] capitalize"
+                          className="rounded-md bg-stone-100 dark:bg-[#181C22] border border-stone-200 dark:border-[rgba(237,231,220,0.1)] px-1.5 py-0.5 text-[9px] font-medium text-stone-600 dark:text-[#9EA5A8] capitalize"
                         >
                           {occ}
                         </span>

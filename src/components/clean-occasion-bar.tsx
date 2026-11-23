@@ -21,7 +21,7 @@ import {
   User,
   LayoutGrid,
 } from "lucide-react";
-import { CuratedItem } from "@/lib/curated-wardrobe";
+import { CuratedItem, formatRupees } from "@/lib/curated-wardrobe";
 import { LookbookModal, SavedOutfit } from "./lookbook-modal";
 import { CapsulePackModal } from "./capsule-pack-modal";
 import { TactileCard } from "./tactile-card";
@@ -459,10 +459,10 @@ export function CleanOccasionBar({
                       ? "bg-[#E0623A] dark:bg-[#E8913C] text-white dark:text-[#0A0C0E] font-semibold shadow-xs"
                       : "text-stone-600 dark:text-[#9EA5A8] hover:text-stone-900 dark:hover:text-[#EDE7DC]"
                   }`}
-                  title="Anatomical 3D Mannequin View"
+                  title="Head-to-Toe Outfit View"
                 >
                   <User className="h-3.5 w-3.5" />
-                  <span>3D Fit</span>
+                  <span>Outfit View</span>
                 </button>
                 <button
                   onClick={() => setDisplayMode("grid")}
@@ -578,8 +578,8 @@ export function CleanOccasionBar({
                     </h4>
                     <div className="flex items-center justify-between text-[11px] text-stone-500 dark:text-[#9EA5A8] mt-1 font-mono">
                       <span>{item.brand}</span>
-                      <span className="text-stone-800 dark:text-[#EDE7DC] font-medium">
-                        ${item.price}
+                      <span className="text-[#E0623A] dark:text-[#EDE7DC] font-medium font-mono">
+                        {formatRupees(item.price)}
                       </span>
                     </div>
                   </div>

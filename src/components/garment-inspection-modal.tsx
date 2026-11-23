@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { X, Heart, Sparkles, Tag, Compass, Layers, Check } from "lucide-react";
-import { CuratedItem } from "@/lib/curated-wardrobe";
+import { CuratedItem, formatRupees } from "@/lib/curated-wardrobe";
 
 interface GarmentInspectionModalProps {
   item: CuratedItem | null;
@@ -193,8 +193,8 @@ export function GarmentInspectionModal({
             </div>
 
             {/* Price badge */}
-            <div className="absolute bottom-3 right-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md px-3 py-1 text-xs font-semibold">
-              ${item.price}
+            <div className="absolute bottom-3 right-3 rounded-lg border border-black/10 dark:border-white/10 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md px-3 py-1 text-xs font-semibold font-mono text-[#E0623A] dark:text-[#EDE7DC]">
+              {formatRupees(item.price)}
             </div>
           </div>
 

@@ -1,75 +1,51 @@
-# VESTIAR
+# Wardrobe AI
 
-> Atelier de Garde-Robe Privée &bull; Occasion Dressing
-
-An editorial digital wardrobe salon engineered for high-tactility garment cataloging, color harmony pairing, and occasion-based silhouette curation.
+A smart digital wardrobe web application that helps you organize your clothing collection and automatically pairs outfits for any occasion using multimodal AI.
 
 ---
 
-## Technical Architecture
+## What It Does
 
-- **Framework**: Next.js 16 (App Router, React 19)
-- **Styling**: Tailwind CSS v4 with dual-palette token architecture (Warm Alabaster Light / Obsidian Noir Dark)
-- **3D Physics & Motion**: Framer Motion with perspective transforms, spring damping, and inertial cursor tracking
-- **Showcase Engine**: WebGL 3D Circular Gallery via OGL
-- **Data Layer**: Supabase PostgreSQL with Prisma ORM
-- **Media Asset Pipeline**: Cloudinary CDN with automated delivery optimization
-- **Vision Classification**: Google Gemini Vision API for multimodal silhouette, fabric, and palette auto-tagging
+1. **Upload & Catalog**: Add photos of your clothes. The system extracts the garment category, sub-category, color palette, and fabric profile automatically.
+2. **Occasion & Weather Pairing**: Select an event (Work, Gym, Evening, Weekend Casual) and current weather to receive coordinated combinations from your actual wardrobe.
+3. **Head-to-Toe View**: Displays your matched ensemble in natural body order (accessories, top layers, bottoms, and footwear) so you can review color balance and styling details.
+4. **Interactive Digital Closet**: Browse your catalog in a clean grid layout or an interactive curved carousel.
+5. **Trip Capsule & Lookbook**: Save favorite combinations or assemble packing lists for upcoming travel.
 
 ---
 
-## Core Capabilities
+## Technical Stack
 
-1. **Theatrical 3D Wardrobe Entrance**
-   - Double-door armoire swinging physics (`rotateY` perspective) with autonomous 2-second timing and diagonal light slash reveal.
-
-2. **Interactive 3D Hovering Canvas**
-   - Real-time cursor-tracking particle field with depth projection (`FOV / (FOV + z)`) and living ambient mesh orbs.
-
-3. **Occasion Direction Engine**
-   - Harmonious pairing algorithms across Gym, Work, Evening, and Casual occasions, incorporating real-time weather and palette coherence.
-
-4. **3D Inertia Garment Showcase**
-   - WebGL cylinder mesh for browsing wardrobe items with touch and wheel inertia.
-
-5. **Multimodal Garment Digitization**
-   - Drag-and-drop image analysis extracting garment category, primary palette hex, fabric weight, and occasion suitability.
+- **Framework**: Next.js 16 (App Router)
+- **UI & Styling**: React 19, Tailwind CSS v4, Lucide Icons
+- **AI Engine**: Google Gemini API (Multimodal Vision & Outfit Engine)
+- **Database & Storage**: Supabase PostgreSQL with Prisma ORM, Cloudinary CDN
+- **Animation**: Framer Motion, OGL WebGL
 
 ---
 
-## Local Development
+## Quickstart
 
-### Prerequisites
-- Node.js 20+
-- npm or pnpm
-
-### Setup
+### 1. Install dependencies
 ```bash
-git clone <your-repo-url>
-cd wardrobe-ai
 npm install
 ```
 
-### Environment Configuration
-Create a `.env.local` file with your credentials:
-```env
-DATABASE_URL="your-postgresql-connection-string"
-DIRECT_URL="your-direct-connection-string"
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your-cloud-name"
-CLOUDINARY_API_KEY="your-api-key"
-CLOUDINARY_API_SECRET="your-api-secret"
-GEMINI_API_KEY="your-gemini-api-key"
-```
+### 2. Configure Environment Variables
+Copy `.env.example` to `.env.local` and add your keys:
+- `DATABASE_URL`: PostgreSQL connection string (Supabase)
+- `CLOUDINARY_URL`: Cloudinary credentials for image storage
+- `GEMINI_API_KEY`: Google Gemini API key
 
-### Run Locally
+### 3. Run Development Server
 ```bash
 npm run dev
-# or for optimized production build:
-npm run build && npm run start
 ```
+
+Open `http://localhost:3000` in your browser.
 
 ---
 
 ## License
 
-Released under the MIT License. Copyright (c) 2026 Dhruv Sharma.
+MIT License - Copyright (c) 2026 Dhruv Sharma.

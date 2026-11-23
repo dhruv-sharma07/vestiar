@@ -12,7 +12,7 @@ import {
   AlertCircle,
   RefreshCw,
 } from "lucide-react";
-import { CuratedItem } from "@/lib/curated-wardrobe";
+import { CuratedItem, formatRupees } from "@/lib/curated-wardrobe";
 
 interface CleanUploadBoxProps {
   onAddItem: (item: CuratedItem) => void;
@@ -23,37 +23,59 @@ interface CleanUploadBoxProps {
 
 const PRESET_SAMPLES = [
   {
-    name: "Heavy-Gauge Relaxed Cargo Trousers",
-    category: "bottoms" as const,
-    colorName: "Washed Slate",
-    colorHex: "#64748b",
-    brand: "Stone Island",
-    price: 160,
-    imageUrl:
-      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=85",
-    occasions: ["party" as const, "casual" as const],
-  },
-  {
-    name: "Classic Silk-Cashmere Knit Crewneck",
-    category: "tops" as const,
-    colorName: "Sand Beige",
-    colorHex: "#e7e5e4",
-    brand: "Loro Piana",
-    price: 180,
-    imageUrl:
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=85",
-    occasions: ["work" as const, "casual" as const],
-  },
-  {
-    name: "Minimalist Suede Chelsea Boots",
+    name: "Handcrafted Suede Chelsea Boots",
     category: "footwear" as const,
     colorName: "Nutmeg Brown",
-    colorHex: "#78350f",
-    brand: "Common Projects",
-    price: 240,
+    colorHex: "#6F4E37",
+    brand: "Loro Piana Atelier",
+    price: 14999,
     imageUrl:
       "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=800&q=85",
-    occasions: ["work" as const, "party" as const],
+    occasions: ["work" as const, "party" as const, "casual" as const],
+  },
+  {
+    name: "Ribbed Cashmere Wool Muffler",
+    category: "accessories" as const,
+    colorName: "Oatmeal Melange",
+    colorHex: "#D7C9B8",
+    brand: "Brunello Cucinelli",
+    price: 4999,
+    imageUrl:
+      "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&w=800&q=85",
+    occasions: ["casual" as const, "work" as const, "party" as const],
+  },
+  {
+    name: "Fine-Gauge Merino Wool Ribbed Socks",
+    category: "accessories" as const,
+    colorName: "Heather Charcoal",
+    colorHex: "#374151",
+    brand: "Pantherella London",
+    price: 1899,
+    imageUrl:
+      "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?auto=format&fit=crop&w=800&q=85",
+    occasions: ["work" as const, "casual" as const, "party" as const],
+  },
+  {
+    name: "Heavyweight Boxy Supima Cotton Tee",
+    category: "tops" as const,
+    colorName: "Chalk White",
+    colorHex: "#FAF9F5",
+    brand: "Studio Nicholson",
+    price: 2999,
+    imageUrl:
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=85",
+    occasions: ["casual" as const, "gym" as const, "work" as const],
+  },
+  {
+    name: "Pleated Relaxed Fluid Trousers",
+    category: "bottoms" as const,
+    colorName: "Mocha Taupe",
+    colorHex: "#9E9589",
+    brand: "Lemaire Atelier",
+    price: 6899,
+    imageUrl:
+      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=85",
+    occasions: ["work" as const, "party" as const, "casual" as const],
   },
 ];
 
@@ -73,7 +95,7 @@ export function CleanUploadBox({
   // Extracted garment state
   const [itemName, setItemName] = useState("");
   const [detectedCategory, setDetectedCategory] = useState<
-    "tops" | "bottoms" | "footwear" | "outerwear"
+    "tops" | "bottoms" | "footwear" | "outerwear" | "accessories"
   >("tops");
   const [colorName, setColorName] = useState("Neutral");
   const [colorHex, setColorHex] = useState("#27272A");
@@ -244,7 +266,16 @@ export function CleanUploadBox({
         text: "text-[#7B6127]",
         border: "border-[#E8D9B9]",
       },
-    }[detectedCategory];
+      accessories: {
+        bg: "bg-[#F5F0EB]",
+        text: "text-[#6B4F3A]",
+        border: "border-[#E5DCD2]",
+      },
+    }[detectedCategory] || {
+      bg: "bg-[#FDF8ED]",
+      text: "text-[#7B6127]",
+      border: "border-[#E8D9B9]",
+    };
 
     const newItem: CuratedItem = {
       id: `item-${Date.now()}`,
@@ -420,15 +451,16 @@ export function CleanUploadBox({
                       value={detectedCategory}
                       onChange={(e) =>
                         setDetectedCategory(
-                          e.target.value as "tops" | "bottoms" | "footwear" | "outerwear"
+                          e.target.value as "tops" | "bottoms" | "footwear" | "outerwear" | "accessories"
                         )
                       }
                       className="w-full h-9 rounded-lg border border-[#EAE6DF] dark:border-stone-700 bg-[#FBF9F5]/70 dark:bg-stone-800/40 px-2.5 text-xs text-[#1C1917] dark:text-[#F5F2EC] focus:outline-hidden"
                     >
                       <option value="tops">Tops</option>
                       <option value="bottoms">Bottoms</option>
-                      <option value="footwear">Footwear</option>
+                      <option value="footwear">Footwear &amp; Shoes</option>
                       <option value="outerwear">Outerwear</option>
+                      <option value="accessories">Accessories (Muffler, Socks, etc.)</option>
                     </select>
                   </div>
 
@@ -468,7 +500,7 @@ export function CleanUploadBox({
 
                   <div>
                     <label className="text-[11px] font-medium text-stone-500 dark:text-stone-400 block mb-1">
-                      Est. Price ($)
+                      Est. Price (₹ INR)
                     </label>
                     <input
                       type="number"

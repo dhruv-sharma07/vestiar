@@ -1,12 +1,12 @@
 export interface CuratedItem {
   id: string;
   name: string;
-  category: "tops" | "bottoms" | "footwear" | "outerwear";
+  category: "tops" | "bottoms" | "footwear" | "outerwear" | "accessories";
   subCategory: string;
   colorName: string;
   colorHex: string;
   brand: string;
-  price: number;
+  price: number; // in Indian Rupees (INR)
   imageUrl: string;
   pastelTag: {
     bg: string;
@@ -16,17 +16,75 @@ export interface CuratedItem {
   occasions: ("gym" | "work" | "party" | "casual")[];
 }
 
-// 4 Minimalist Core Pieces for 1-Click Demo
+/**
+ * Format price in Indian Rupees (e.g. ₹14,999)
+ */
+export function formatRupees(amount: number): string {
+  return `₹${amount.toLocaleString("en-IN")}`;
+}
+
+// Curated Luxury Capsule Collection with Shoes, Muffler, Socks, Tops, Bottoms & Outerwear
 export const SAMPLE_FOUR_ITEMS: CuratedItem[] = [
   {
-    id: "sample-1",
-    name: "Heavyweight Boxy Supima Tee",
+    id: "sample-shoes-1",
+    name: "Handcrafted Suede Chelsea Boots",
+    category: "footwear",
+    subCategory: "Boots",
+    colorName: "Nutmeg Brown",
+    colorHex: "#6F4E37",
+    brand: "Loro Piana Atelier",
+    price: 14999,
+    imageUrl: "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?auto=format&fit=crop&w=800&q=85",
+    pastelTag: {
+      bg: "bg-[#E8EEE7]",
+      text: "text-[#2D4A34]",
+      border: "border-[#D1DFD0]",
+    },
+    occasions: ["work", "party", "casual"],
+  },
+  {
+    id: "sample-muffler-1",
+    name: "Ribbed Cashmere Wool Muffler",
+    category: "accessories",
+    subCategory: "Muffler",
+    colorName: "Oatmeal Melange",
+    colorHex: "#D7C9B8",
+    brand: "Brunello Cucinelli",
+    price: 4999,
+    imageUrl: "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&w=800&q=85",
+    pastelTag: {
+      bg: "bg-[#FDF8ED]",
+      text: "text-[#7B6127]",
+      border: "border-[#E8D9B9]",
+    },
+    occasions: ["casual", "work", "party"],
+  },
+  {
+    id: "sample-socks-1",
+    name: "Fine-Gauge Merino Wool Ribbed Socks",
+    category: "accessories",
+    subCategory: "Socks",
+    colorName: "Heather Charcoal",
+    colorHex: "#374151",
+    brand: "Pantherella London",
+    price: 1899,
+    imageUrl: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?auto=format&fit=crop&w=800&q=85",
+    pastelTag: {
+      bg: "bg-[#F3EFEA]",
+      text: "text-[#5C5349]",
+      border: "border-[#E4DCD2]",
+    },
+    occasions: ["work", "casual", "party"],
+  },
+  {
+    id: "sample-top-1",
+    name: "Heavyweight Boxy Supima Cotton Tee",
     category: "tops",
     subCategory: "T-Shirt",
     colorName: "Chalk White",
     colorHex: "#FAF9F5",
     brand: "Studio Nicholson",
-    price: 45,
+    price: 2999,
     imageUrl: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=85",
     pastelTag: {
       bg: "bg-[#E8EEE7]",
@@ -36,14 +94,14 @@ export const SAMPLE_FOUR_ITEMS: CuratedItem[] = [
     occasions: ["casual", "gym", "work"],
   },
   {
-    id: "sample-2",
+    id: "sample-bottom-1",
     name: "Pleated Relaxed Fluid Trousers",
     category: "bottoms",
     subCategory: "Trousers",
     colorName: "Mocha Taupe",
     colorHex: "#9E9589",
-    brand: "Lemaire",
-    price: 135,
+    brand: "Lemaire Atelier",
+    price: 6899,
     imageUrl: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=85",
     pastelTag: {
       bg: "bg-[#F3EFEA]",
@@ -53,31 +111,31 @@ export const SAMPLE_FOUR_ITEMS: CuratedItem[] = [
     occasions: ["work", "party", "casual"],
   },
   {
-    id: "sample-3",
-    name: "Minimalist Calfskin Court Low-Tops",
+    id: "sample-shoes-2",
+    name: "Minimalist Italian Suede Court Sneakers",
     category: "footwear",
     subCategory: "Sneakers",
     colorName: "Alabaster White",
     colorHex: "#F5F5F4",
     brand: "Common Projects",
-    price: 260,
+    price: 8499,
     imageUrl: "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=85",
     pastelTag: {
       bg: "bg-[#E8EEE7]",
       text: "text-[#2D4A34]",
       border: "border-[#D1DFD0]",
     },
-    occasions: ["casual", "work", "party", "gym"],
+    occasions: ["casual", "work", "gym"],
   },
   {
-    id: "sample-4",
+    id: "sample-outerwear-1",
     name: "Washed Cotton Utility Chore Overshirt",
     category: "outerwear",
     subCategory: "Overshirt",
     colorName: "Earthy Olive",
     colorHex: "#475136",
     brand: "Margaret Howell",
-    price: 185,
+    price: 8999,
     imageUrl: "https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=800&q=85",
     pastelTag: {
       bg: "bg-[#FDF8ED]",
@@ -104,7 +162,7 @@ export function generateDynamicOutfit(
 ): DynamicOccasionOutfit | null {
   if (items.length === 0) return null;
 
-  // Find preferred items tagged for this occasion
+  // Filter items matching occasion preference
   let tops = items.filter((i) => i.category === "tops" && i.occasions.includes(occasion));
   if (tops.length === 0) tops = items.filter((i) => i.category === "tops");
 
@@ -114,47 +172,46 @@ export function generateDynamicOutfit(
   let shoes = items.filter((i) => i.category === "footwear" && i.occasions.includes(occasion));
   if (shoes.length === 0) shoes = items.filter((i) => i.category === "footwear");
 
-  const outerwear = items.find((i) => i.category === "outerwear");
+  const outerwear = items.find((i) => i.category === "outerwear" && i.occasions.includes(occasion)) ||
+    items.find((i) => i.category === "outerwear");
 
-  // Pair top + bottom + shoe if available
+  const accessory = items.find((i) => i.category === "accessories" && i.occasions.includes(occasion)) ||
+    items.find((i) => i.category === "accessories");
+
   const top = tops[0] || items[0];
   const bottom = bottoms[0] || (items.length > 1 ? items[1] : undefined);
   const shoe = shoes[0] || (items.length > 2 ? items[2] : undefined);
 
-  const paired = [top, bottom, shoe, outerwear].filter(Boolean) as CuratedItem[];
+  const paired = [top, bottom, shoe, outerwear, accessory].filter(Boolean) as CuratedItem[];
 
   const METADATA = {
     gym: {
-      title: "Lightweight High-Mobility Set",
-      tagline: "Engineered for training, breathable movement & cool comfort.",
+      title: "Breathable High-Mobility Athletic Set",
+      tagline: "Engineered for flexibility, heat dissipation and dynamic movement.",
       stylistNote:
-        "Breathable airy upper paired with flexible ergonomic bottoms. Neutral trainers ground the athletic silhouette with effortless balance.",
+        "High-recovery breathable top anchored with ergonomic bottoms. Minimalist trainers provide grounded cushioning, complemented by performance merino socks.",
       score: 98,
-      palette: ["#FAF9F5", "#9E9589", "#F5F5F4"],
     },
     work: {
-      title: "Refined Modern Tailored Smart-Casual",
-      tagline: "Polished for meetings, creative studios, and professional presentations.",
+      title: "Modern Milanese Tailored Smart-Casual",
+      tagline: "Structured proportions for creative boardroom meetings and studio visits.",
       stylistNote:
-        "Clean, structured silhouette with high-contrast proportions. Minimalist footwear anchors the look with quiet luxury understatement.",
-      score: 96,
-      palette: ["#FAF9F5", "#475136", "#9E9589", "#F5F5F4"],
+        "Fluid pleated trousers balanced by the tailored overshirt and suede Chelsea boots. The cashmere muffler introduces quiet luxury texture.",
+      score: 97,
     },
     party: {
-      title: "Understated Evening Monochrome",
-      tagline: "Relaxed European nightlife tailoring with subtle texture.",
+      title: "Understated Evening Salon Monochrome",
+      tagline: "European twilight tailoring featuring tonal texture and refined footwear.",
       stylistNote:
-        "Soft drape layering anchored by refined footwear. Unbutton collar slightly for an effortless, confident twilight aesthetic.",
-      score: 95,
-      palette: ["#1E293B", "#9E9589", "#F5F5F4"],
+        "Rich deep tones accented by brushed leather Chelsea boots and a fine merino scarf. An effortless, commanding silhouette for nightfall.",
+      score: 96,
     },
     casual: {
-      title: "Weekend Gallery Stroll & Espresso",
-      tagline: "Understated neutrals with architectural utility layers.",
+      title: "Weekend Atelier Stroll & Gallery Visit",
+      tagline: "Effortless casual layering in warm alabaster, mocha, and olive tones.",
       stylistNote:
-        "Chalk white essentials elevated by the olive utility overshirt, grounded by relaxed trousers and pristine calfskin court sneakers.",
-      score: 97,
-      palette: ["#FAF9F5", "#475136", "#9E9589"],
+        "Heavyweight Supima tee layered under the washed olive chore jacket, paired with Italian court sneakers and ribbed cashmere muffler.",
+      score: 99,
     },
   }[occasion];
 

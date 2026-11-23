@@ -1,224 +1,54 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { CleanNavbar } from "@/components/clean-navbar";
 import { CleanHero } from "@/components/clean-hero";
-import { CleanOccasionBar } from "@/components/clean-occasion-bar";
-import { CleanWardrobeGrid } from "@/components/clean-wardrobe-grid";
-import { CleanUploadBox } from "@/components/clean-upload-box";
 import { AuthModal } from "@/components/auth-modal";
 import { Interactive3DBackground } from "@/components/interactive-3d-background";
 import { WardrobeEntrance } from "@/components/wardrobe-entrance";
-import { SAMPLE_FOUR_ITEMS, CuratedItem } from "@/lib/curated-wardrobe";
-import { Database, UploadCloud, Cpu, Mail, Phone } from "lucide-react";
+import { TactileCard } from "@/components/tactile-card";
+import { useWardrobe } from "@/lib/use-wardrobe";
+import {
+  Shirt,
+  Sparkles,
+  Plus,
+  ArrowRight,
+  Database,
+  UploadCloud,
+  Cpu,
+  Mail,
+  Phone,
+  Layers,
+  Orbit,
+  Compass,
+} from "lucide-react";
 
 export default function Home() {
-  const [items, setItems] = useState<CuratedItem[]>([]);
-  const [isSampleActive, setIsSampleActive] = useState(false);
-  const [guestUploadCount, setGuestUploadCount] = useState(0);
-  const [user, setUser] = useState<{
-    name: string;
-    email: string;
-    avatar: string;
-  } | null>(null);
+  const {
+    items,
+    user,
+    isSampleActive,
+    dbSource,
+    isCloudinaryActive,
+    loadSamples,
+    login,
+    logout,
+    formatRupees,
+  } = useWardrobe();
+
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authTriggerReason, setAuthTriggerReason] = useState("");
-  const [dbSource, setDbSource] = useState<"database" | "local-fallback">("local-fallback");
-  const [isCloudinaryActive, setIsCloudinaryActive] = useState(false);
-  const [currentYear, setCurrentYear] = useState(2026);
+  const [authReason, setAuthReason] = useState("");
   const [isDoorsOpen, setIsDoorsOpen] = useState(true);
+  const currentYear = 2026;
 
-  // Helper function to resolve pastel badge styling
-  const getPastelTag = (category: string) => {
-    switch (category) {
-      case "tops":
-        return {
-          bg: "bg-[#E8EEE7]",
-          text: "text-[#2D4A34]",
-          border: "border-[#D1DFD0]",
-        };
-      case "bottoms":
-        return {
-          bg: "bg-[#F3EFEA]",
-          text: "text-[#5C5349]",
-          border: "border-[#E4DCD2]",
-        };
-      case "footwear":
-        return {
-          bg: "bg-[#E8EEE7]",
-          text: "text-[#2D4A34]",
-          border: "border-[#D1DFD0]",
-        };
-      default:
-        return {
-          bg: "bg-[#FDF8ED]",
-          text: "text-[#7B6127]",
-          border: "border-[#E8D9B9]",
-        };
-    }
-  };
-
-  // Load wardrobe from Backend API with LocalStorage Fallback
-  useEffect(() => {
-    async function loadWardrobe() {
-      try {
-        const res = await fetch("/api/wardrobe");
-        const data = await res.json();
-
-        if (data.success && data.source === "database") {
-          setDbSource("database");
-          if (Array.isArray(data.items) && data.items.length > 0) {
-            const dbItems: CuratedItem[] = data.items.map((dbItem: any) => ({
-              id: dbItem.id,
-              name: dbItem.name,
-              category: dbItem.category,
-              subCategory: dbItem.type || "Apparel",
-              colorName: dbItem.colors?.[0] || "Neutral",
-              colorHex: dbItem.colorHex || "#27272A",
-              brand: dbItem.brand || "Custom",
-              price: dbItem.price || 0,
-              imageUrl: dbItem.imageUrl,
-              pastelTag: getPastelTag(dbItem.category),
-              occasions: dbItem.occasions || ["casual"],
-            }));
-            setItems(dbItems);
-            setIsSampleActive(false);
-            return;
-          }
-        }
-      } catch (err) {
-        console.log("Using local storage fallback:", err);
-      }
-
-      // Fallback: Read from browser localStorage
-      try {
-        const saved = localStorage.getItem("fitiq_closet_items");
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setItems(parsed);
-            setIsSampleActive(false);
-          }
-        }
-        const savedUser = localStorage.getItem("fitiq_user");
-        if (savedUser) {
-          setUser(JSON.parse(savedUser));
-        }
-      } catch (e) {}
-    }
-
-    loadWardrobe();
-
-    // Check Cloudinary status
-    fetch("/api/upload")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.isConfigured) {
-          setIsCloudinaryActive(true);
-        }
-      })
-      .catch(() => {});
-  }, []);
-
-  // Save items to localStorage whenever changed
-  const updateItems = (newItems: CuratedItem[]) => {
-    setItems(newItems);
-    try {
-      localStorage.setItem("fitiq_closet_items", JSON.stringify(newItems));
-    } catch (e) {}
-  };
-
-  const handleAddItem = async (newItem: CuratedItem) => {
-    // Optimistic UI update
-    const updated = [newItem, ...items];
-    updateItems(updated);
-    setIsSampleActive(false);
-    setGuestUploadCount((prev) => prev + 1);
-
-    // Sync with real backend API
-    try {
-      const res = await fetch("/api/wardrobe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: newItem.name,
-          imageUrl: newItem.imageUrl,
-          category: newItem.category,
-          subCategory: newItem.subCategory,
-          colorName: newItem.colorName,
-          colorHex: newItem.colorHex,
-          brand: newItem.brand,
-          price: newItem.price,
-          occasions: newItem.occasions,
-          userId: user?.email || "demo-user-1",
-          userEmail: user?.email || "guest@fitiq.local",
-        }),
-      });
-      const data = await res.json();
-      if (data.source === "database") {
-        setDbSource("database");
-      }
-    } catch (err) {
-      console.log("Saved locally (offline mode)");
-    }
-  };
-
-  const handleRemoveItem = async (id: string) => {
-    const updated = items.filter((i) => i.id !== id);
-    updateItems(updated);
-
-    try {
-      await fetch(`/api/wardrobe/${id}`, { method: "DELETE" });
-    } catch (err) {
-      console.log("Deleted locally");
-    }
-  };
-
-  const handleLoadSamples = () => {
-    updateItems(SAMPLE_FOUR_ITEMS);
-    setIsSampleActive(true);
-    scrollToSection("demo-wardrobe-section");
-  };
-
-  const handleClearSamples = () => {
-    updateItems([]);
-    setIsSampleActive(false);
-  };
-
-  const handleTriggerAuth = (reason: string) => {
-    setAuthTriggerReason(reason);
-    setAuthModalOpen(true);
-  };
-
-  const handleLoginSuccess = (userData: {
-    name: string;
-    email: string;
-    avatar: string;
-  }) => {
-    setUser(userData);
-    try {
-      localStorage.setItem("fitiq_user", JSON.stringify(userData));
-    } catch (e) {}
-  };
-
-  const handleSignOut = () => {
-    setUser(null);
-    try {
-      localStorage.removeItem("fitiq_user");
-    } catch (e) {}
-  };
-
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // Total closet value in INR
+  const totalValuation = items.reduce((acc, item) => acc + (item.price || 0), 0);
 
   return (
     <div className="relative min-h-screen overflow-x-clip bg-[#FBF9F5] dark:bg-[#0A0C0E] p-2 sm:p-3 md:p-3.5 text-[#1C1917] dark:text-[#EDE7DC] transition-colors selection:bg-[#E0623A]/20 selection:text-[#E0623A]">
-      {/* 0. Theatrical 3D Wardrobe Doors Entrance Motion (Autonomous 2-Second Sequence with Name Slash) */}
+      {/* Theatrical 3D Wardrobe Doors Entrance Motion (Autonomous 2-Second Sequence with Name Slash) */}
       <WardrobeEntrance
         isOpen={isDoorsOpen}
         onOpen={() => setIsDoorsOpen(true)}
@@ -226,62 +56,211 @@ export default function Home() {
         autoOpenDelay={2000}
       />
 
-      {/* 1. Interactive 3D Background (Hovers & tilts dynamically as the mouse moves) */}
+      {/* Interactive 3D Background (Hovers & tilts dynamically as the mouse moves) */}
       <Interactive3DBackground />
 
-      {/* 2. Cushioned Architectural Magazine Frame (12px / 0.75rem inset with hairline border) */}
+      {/* Cushioned Architectural Magazine Frame */}
       <div className="relative min-h-[calc(100vh-1.5rem)] rounded-2xl md:rounded-3xl border border-[#E8E3DA] dark:border-[rgba(237,231,220,0.14)] bg-white/95 dark:bg-[#121519]/90 backdrop-blur-xl shadow-luxury flex flex-col justify-between">
         <div>
           {/* Editorial Minimalist Navbar */}
           <CleanNavbar
             totalPieces={items.length}
             user={user}
-            onOpenAuth={() =>
-              handleTriggerAuth("Sign in to sync your wardrobe across all your devices.")
-            }
-            onSignOut={handleSignOut}
-            onScrollToUpload={() => scrollToSection("upload-section")}
-            onScrollToCloset={() => scrollToSection("demo-wardrobe-section")}
-            onScrollToStylist={() => scrollToSection("style-me-section")}
+            onOpenAuth={() => {
+              setAuthReason("Sign in to sync your wardrobe across all your devices.");
+              setAuthModalOpen(true);
+            }}
+            onSignOut={logout}
             onToggleDoors={() => setIsDoorsOpen((prev) => !prev)}
             isDoorsOpen={isDoorsOpen}
           />
 
           <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             {/* 1. Hero Section */}
-            <CleanHero
-              onScrollToUpload={() => scrollToSection("upload-section")}
-              onScrollToCloset={() => scrollToSection("demo-wardrobe-section")}
-              onLoadSamples={handleLoadSamples}
-              isEmpty={items.length === 0}
-              onToggleDoors={() => setIsDoorsOpen((prev) => !prev)}
-              isDoorsOpen={isDoorsOpen}
-            />
+            <section className="relative pt-10 pb-12 sm:pt-16 sm:pb-16 text-center select-none">
+              <div className="mx-auto max-w-3xl px-4 sm:px-6 flex flex-col items-center">
+                {/* Monogram Crest */}
+                <div className="inline-flex items-center gap-2.5 rounded-full border border-[#EAE6DF] dark:border-[#2E2A26] bg-white/80 dark:bg-[#1C1A17]/80 backdrop-blur-md px-4 py-1.5 text-xs text-[#1C1917] dark:text-[#F5F2EC] mb-5 shadow-2xs">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#E0623A] animate-pulse" />
+                  <span className="font-serif tracking-wider uppercase text-[10px] text-stone-500 dark:text-stone-400">
+                    Digital Atelier
+                  </span>
+                  <span className="text-stone-300 dark:text-stone-700">&bull;</span>
+                  <span className="text-xs font-serif italic text-stone-600 dark:text-stone-300">
+                    Bespoke Capsule Architecture
+                  </span>
+                </div>
 
-            {/* 2. "Style Me" Occasion Bar & Paired Combination Card */}
-            <CleanOccasionBar
-              items={items}
-              onLoadSamples={handleLoadSamples}
-              userEmail={user?.email}
-            />
+                <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif tracking-tight text-[#1C1917] dark:text-[#F5F2EC] font-normal leading-[1.1] max-w-2xl">
+                  The sanctuary of <br />
+                  <span className="italic font-light text-[#E0623A]">
+                    intentional dressing.
+                  </span>
+                </h1>
 
-            {/* 3. Demo Wardrobe Grid (Empty zero-state vs populated with 3D tactile cards) */}
-            <CleanWardrobeGrid
-              items={items}
-              onLoadSamples={handleLoadSamples}
-              onClearSamples={handleClearSamples}
-              onScrollToUpload={() => scrollToSection("upload-section")}
-              onRemoveItem={handleRemoveItem}
-              isSampleActive={isSampleActive}
-            />
+                <p className="mt-5 text-sm sm:text-base text-stone-600 dark:text-stone-400 font-normal max-w-xl mx-auto leading-relaxed">
+                  An intimate digital salon for cataloging everyday garments. Tonal harmony algorithms, silhouette proportions, and bespoke occasion curation.
+                </p>
 
-            {/* 4. Quick Add / Upload Box */}
-            <CleanUploadBox
-              onAddItem={handleAddItem}
-              guestUploadCount={guestUploadCount}
-              isLoggedIn={!!user}
-              onTriggerAuth={handleTriggerAuth}
-            />
+                {/* Primary Route CTAs */}
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
+                  <Link
+                    href="/wardrobe"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-[#1C1917] hover:bg-black dark:bg-[#F5F2EC] dark:hover:bg-white text-white dark:text-[#1C1917] px-6 py-3 text-xs sm:text-sm font-medium transition-all shadow-sm group cursor-pointer"
+                  >
+                    <Shirt className="h-4 w-4" />
+                    <span>Enter Closet Archive</span>
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+
+                  <Link
+                    href="/upload"
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-[#E0623A] hover:bg-[#C8532F] text-white px-6 py-3 text-xs sm:text-sm font-medium transition-all shadow-sm cursor-pointer"
+                  >
+                    <Plus className="h-4 w-4" />
+                    <span>Upload New Garment</span>
+                  </Link>
+
+                  {items.length === 0 && (
+                    <button
+                      onClick={loadSamples}
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-[#D1DFD0] bg-[#E8EEE7] hover:bg-[#DCE6DA] text-[#2D4A34] dark:border-[#27332A] dark:bg-[#1E2E22] dark:text-[#D3E0D5] px-5 py-3 text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-2xs"
+                    >
+                      <Layers className="h-4 w-4" />
+                      <span>Load Sample Wardrobe</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </section>
+
+            {/* 2. Atelier Salon Dedicated Navigation Cards */}
+            <section className="py-8 sm:py-12 border-t border-[#EAE6DF] dark:border-[rgba(237,231,220,0.12)]">
+              <div className="mb-8">
+                <span className="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400">
+                  Salon Portals
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-serif text-[#1C1917] dark:text-[#F5F2EC] mt-1">
+                  Atelier Navigation &amp; Workspaces
+                </h2>
+                <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">
+                  Each salon workspace is separated into dedicated fast pages for distraction-free styling.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Card 1: Digital Closet Collection */}
+                <Link href="/wardrobe" className="group">
+                  <TactileCard
+                    maxTilt={4}
+                    elevation={10}
+                    className="h-full flex flex-col justify-between rounded-2xl border border-[#EAE6DF] dark:border-[#2E2A26] bg-white dark:bg-[#1C1A17] p-6 sm:p-7 transition-all duration-300 hover:border-[#E0623A]/50 shadow-luxury hover:shadow-luxury-hover cursor-pointer"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FAF6EE] dark:bg-stone-800 text-[#E0623A]">
+                          <Orbit className="h-5 w-5" />
+                        </div>
+                        <span className="rounded-md border border-[#EAE6DF] dark:border-[#2E2A26] bg-stone-50 dark:bg-stone-900 px-2 py-0.5 text-[10px] font-mono text-stone-500 dark:text-stone-400">
+                          {items.length} Pieces
+                        </span>
+                      </div>
+
+                      <h3 className="font-serif text-xl font-normal text-[#1C1917] dark:text-[#F5F2EC] group-hover:text-[#E0623A] transition-colors">
+                        Collection Archive &amp; 3D Gallery
+                      </h3>
+                      <p className="text-xs text-stone-500 dark:text-stone-400 mt-2 leading-relaxed">
+                        Explore your curated wardrobe via the WebGL 3D circular cylinder or tactile physics grid. Features Chelsea boots, cashmere mufflers, merino socks, and fine apparel.
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs font-medium">
+                      <span className="text-stone-600 dark:text-stone-400 font-mono">
+                        Valuation: {formatRupees(totalValuation)}
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[#E0623A] group-hover:translate-x-1 transition-transform">
+                        <span>Open Archive</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
+                  </TactileCard>
+                </Link>
+
+                {/* Card 2: Garment Digitization Studio */}
+                <Link href="/upload" className="group">
+                  <TactileCard
+                    maxTilt={4}
+                    elevation={10}
+                    className="h-full flex flex-col justify-between rounded-2xl border border-[#EAE6DF] dark:border-[#2E2A26] bg-white dark:bg-[#1C1A17] p-6 sm:p-7 transition-all duration-300 hover:border-[#E0623A]/50 shadow-luxury hover:shadow-luxury-hover cursor-pointer"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E8EEE7] dark:bg-[#1E2E22] text-[#2D4A34] dark:text-[#D3E0D5]">
+                          <Plus className="h-5 w-5" />
+                        </div>
+                        <span className="rounded-md border border-emerald-200 dark:border-emerald-800/50 bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 text-[10px] font-mono text-emerald-700 dark:text-emerald-300">
+                          AI Multimodal
+                        </span>
+                      </div>
+
+                      <h3 className="font-serif text-xl font-normal text-[#1C1917] dark:text-[#F5F2EC] group-hover:text-[#E0623A] transition-colors">
+                        Digitization Studio
+                      </h3>
+                      <p className="text-xs text-stone-500 dark:text-stone-400 mt-2 leading-relaxed">
+                        Drag and drop photos of shoes, mufflers, socks, and garments. Google Gemini Vision automatically classifies fabric, extracts color hexes, and detects occasions.
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs font-medium">
+                      <span className="text-stone-500 dark:text-stone-400">
+                        Zero manual typing
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[#E0623A] group-hover:translate-x-1 transition-transform">
+                        <span>Upload Photo</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
+                  </TactileCard>
+                </Link>
+
+                {/* Card 3: Occasion Styling Salon */}
+                <Link href="/style" className="group">
+                  <TactileCard
+                    maxTilt={4}
+                    elevation={10}
+                    className="h-full flex flex-col justify-between rounded-2xl border border-[#EAE6DF] dark:border-[#2E2A26] bg-white dark:bg-[#1C1A17] p-6 sm:p-7 transition-all duration-300 hover:border-[#E0623A]/50 shadow-luxury hover:shadow-luxury-hover cursor-pointer"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FDF8ED] dark:bg-[#251E12] text-[#7B6127] dark:text-[#E5C378]">
+                          <Compass className="h-5 w-5" />
+                        </div>
+                        <span className="rounded-md border border-amber-200 dark:border-amber-800/50 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 text-[10px] font-mono text-amber-700 dark:text-amber-300">
+                          3D Mannequin
+                        </span>
+                      </div>
+
+                      <h3 className="font-serif text-xl font-normal text-[#1C1917] dark:text-[#F5F2EC] group-hover:text-[#E0623A] transition-colors">
+                        Occasion Styling Salon
+                      </h3>
+                      <p className="text-xs text-stone-500 dark:text-stone-400 mt-2 leading-relaxed">
+                        Curate complete ensembles for Gym, Work, Evening Salon, and Casual Weekends. Features weather temperature matrix and save-to-lookbook capabilities.
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between text-xs font-medium">
+                      <span className="text-stone-500 dark:text-stone-400">
+                        Smart Tonal Harmony
+                      </span>
+                      <span className="inline-flex items-center gap-1 text-[#E0623A] group-hover:translate-x-1 transition-transform">
+                        <span>Pair Outfits</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
+                  </TactileCard>
+                </Link>
+              </div>
+            </section>
           </main>
         </div>
 
@@ -295,14 +274,16 @@ export default function Home() {
                     Vestiar
                   </Link>
                   <span className="text-[#E0623A]">:</span>
-                  <span className="font-normal text-stone-700 dark:text-[#EDE7DC]/80 font-serif italic">Atelier de Garde-Robe Privée &amp; Occasion Dressing</span>
+                  <span className="font-normal text-stone-700 dark:text-[#EDE7DC]/80 font-serif italic">
+                    Atelier de Garde-Robe Privée &amp; Occasion Dressing
+                  </span>
                 </div>
                 <p className="text-[11px] text-stone-500 dark:text-[#9EA5A8] mt-1 font-light">
                   Haute capsule curation, tonal color harmony, and bespoke silhouette styling.
                 </p>
               </div>
 
-              {/* Infrastructure Sync Status Indicators (Architectural rounded-md) */}
+              {/* Infrastructure Indicators */}
               <div className="flex items-center gap-2 flex-wrap">
                 <div className="flex items-center gap-1.5 rounded-md border border-[#E8E3DA] dark:border-[rgba(237,231,220,0.15)] bg-white dark:bg-[#101317] px-2.5 py-1 text-[11px] text-stone-700 dark:text-stone-300">
                   <Database className="h-3 w-3 text-stone-400" />
@@ -338,7 +319,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Links & Contact Row */}
+            {/* Links & Contact */}
             <div className="pt-6 border-t border-[#E8E3DA] dark:border-[rgba(237,231,220,0.1)] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
               <div className="flex items-center gap-5 flex-wrap">
                 <span>&copy; {currentYear} VESTIAR Atelier. All rights reserved.</span>
@@ -371,12 +352,11 @@ export default function Home() {
         </footer>
       </div>
 
-      {/* Account Gate & Sign-In Modal */}
       <AuthModal
         open={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
-        onLoginSuccess={handleLoginSuccess}
-        triggerReason={authTriggerReason}
+        onLoginSuccess={login}
+        triggerReason={authReason}
       />
     </div>
   );
