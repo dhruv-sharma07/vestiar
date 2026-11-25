@@ -38,13 +38,13 @@ export function VestiarMonogram({
         />
         <path
           d="M13 8L20 22L27 8"
-          stroke="#E0623A"
+          stroke="#789575"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeOpacity="0.85"
+          strokeOpacity="0.9"
         />
-        <circle cx="20" cy="32" r="1.5" fill="#E0623A" />
+        <circle cx="20" cy="32" r="1.5" fill="#789575" />
       </svg>
     );
   }
@@ -52,14 +52,14 @@ export function VestiarMonogram({
   if (variant === "crest") {
     return (
       <div
-        className={`relative flex items-center justify-center rounded-2xl border border-[#EAE6DF] dark:border-[#2E2A26] bg-gradient-to-b from-white to-[#FBF9F5] dark:from-[#1C1A17] dark:to-[#141210] shadow-luxury p-3 ${className}`}
+        className={`relative flex items-center justify-center rounded-2xl border border-[#CAD2B4] bg-[#EFF2E1] shadow-luxury p-3 ${className}`}
         style={{ width: size, height: size }}
       >
         <svg
           viewBox="0 0 48 48"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
+          className="w-full h-full text-[#202D1F]"
         >
           {/* Subtle outer diamond facet */}
           <rect
@@ -70,7 +70,7 @@ export function VestiarMonogram({
             rx="4"
             transform="rotate(45 24 2)"
             stroke="currentColor"
-            strokeOpacity="0.15"
+            strokeOpacity="0.2"
             strokeWidth="1"
           />
           {/* Main Roman V silhouette */}
@@ -84,13 +84,13 @@ export function VestiarMonogram({
           {/* Interior tailored pillar */}
           <path
             d="M16 12L24 28L32 12"
-            stroke="#E0623A"
+            stroke="#789575"
             strokeWidth="1.75"
             strokeLinecap="square"
             strokeLinejoin="miter"
           />
           {/* Atelier apex pin */}
-          <circle cx="24" cy="38" r="2" fill="#E0623A" />
+          <circle cx="24" cy="38" r="2" fill="#789575" />
         </svg>
       </div>
     );
@@ -99,7 +99,7 @@ export function VestiarMonogram({
   // Default "badge" variant
   return (
     <div
-      className={`relative flex items-center justify-center rounded-xl bg-[#1C1917] text-[#FAF9F5] dark:bg-[#F5F2EC] dark:text-[#1C1917] shadow-xs overflow-hidden ${className}`}
+      className={`relative flex items-center justify-center rounded-xl bg-[#202D1F] text-[#E5E8CE] shadow-xs overflow-hidden ${className}`}
       style={{ width: size, height: size }}
     >
       <svg
@@ -119,13 +119,13 @@ export function VestiarMonogram({
         {/* Hairline Tailored Accent */}
         <path
           d="M14 10L20 22L26 10"
-          stroke="#E0623A"
+          stroke="#789575"
           strokeWidth="1.6"
           strokeLinecap="square"
           strokeLinejoin="miter"
         />
         {/* Apex Accent Point */}
-        <circle cx="20" cy="32" r="1.5" fill="#E0623A" />
+        <circle cx="20" cy="32" r="1.5" fill="#789575" />
       </svg>
     </div>
   );

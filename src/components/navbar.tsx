@@ -3,7 +3,6 @@
 import React from "react";
 import { Sparkles, Shirt, Calendar, BarChart3, CloudSun, Plus } from "lucide-react";
 import { useWardrobeStore } from "@/store/wardrobe-store";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -106,9 +105,6 @@ export function Navbar({ onOpenAddItem }: NavbarProps) {
             <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">Add Clothes</span>
           </Button>
-
-          {/* Theme Toggle */}
-          <ThemeToggle />
         </div>
       </div>
 

@@ -70,20 +70,20 @@ export function CleanWardrobeGrid({
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#586B56]">
             Digital Closet Archive
           </span>
           <div className="flex items-center gap-3 mt-1">
-            <h2 className="text-2xl sm:text-3xl font-serif font-normal text-[#1C1917] dark:text-[#F5F2EC]">
+            <h2 className="text-2xl sm:text-3xl font-serif font-normal text-[#202D1F]">
               My Wardrobe Collection
             </h2>
             {items.length > 0 && (
-              <span className="rounded-md border border-[#EAE6DF] dark:border-[#2E2A26] bg-white dark:bg-stone-900 px-2.5 py-0.5 text-xs font-medium text-stone-600 dark:text-stone-300">
+              <span className="rounded-md border border-[#CAD2B4] bg-[#EFF2E1] px-2.5 py-0.5 text-xs font-medium text-[#202D1F]">
                 {items.length} {items.length === 1 ? "piece" : "pieces"}
               </span>
             )}
           </div>
-          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1">
+          <p className="text-xs sm:text-sm text-[#586B56] mt-1">
             Visual catalog with editorial photography, fabric dossiers, and Rupee (₹) valuation.
           </p>
         </div>
@@ -93,25 +93,25 @@ export function CleanWardrobeGrid({
           {items.length > 0 ? (
             <>
               {/* View Mode Toggle: 3D Circular WebGL vs Tactile Grid */}
-              <div className="flex items-center rounded-lg border border-[#EAE6DF] dark:border-[#2E2A26] bg-stone-100/70 dark:bg-stone-800/50 p-0.5">
+              <div className="flex items-center rounded-lg border border-[#CAD2B4] bg-[#DCE2C6]/60 p-0.5">
                 <button
                   onClick={() => setViewMode("circular")}
                   className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all cursor-pointer ${
                     viewMode === "circular"
-                      ? "bg-white dark:bg-stone-900 text-[#1C1917] dark:text-[#F5F2EC] shadow-2xs font-semibold"
-                      : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-200"
+                      ? "bg-[#EFF2E1] text-[#202D1F] shadow-2xs font-semibold"
+                      : "text-[#586B56] hover:text-[#202D1F]"
                   }`}
                   title="3D Circular WebGL Showcase"
                 >
-                  <Orbit className="h-3.5 w-3.5 text-[#E0623A]" />
+                  <Orbit className="h-3.5 w-3.5 text-[#789575]" />
                   <span className="hidden sm:inline">3D Circular</span>
                 </button>
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all cursor-pointer ${
                     viewMode === "grid"
-                      ? "bg-white dark:bg-stone-900 text-[#1C1917] dark:text-[#F5F2EC] shadow-2xs font-semibold"
-                      : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-200"
+                      ? "bg-[#EFF2E1] text-[#202D1F] shadow-2xs font-semibold"
+                      : "text-[#586B56] hover:text-[#202D1F]"
                   }`}
                   title="Curated Catalog Grid"
                 >
@@ -135,14 +135,14 @@ export function CleanWardrobeGrid({
                       onClick={() => setActiveCategory(cat.id)}
                       className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer ${
                         isSelected
-                          ? "bg-[#1C1917] text-white dark:bg-[#F5F2EC] dark:text-[#1C1917] shadow-xs"
-                          : "border border-[#EAE6DF] dark:border-[#2E2A26] bg-white/70 dark:bg-stone-900/40 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200"
+                          ? "bg-[#789575] text-white shadow-xs font-semibold"
+                          : "border border-[#CAD2B4] bg-[#EFF2E1] text-[#202D1F] hover:bg-[#DCE2C6]"
                       }`}
                     >
                       <span>{cat.label}</span>
                       <span
                         className={`text-[10px] ${
-                          isSelected ? "opacity-75" : "text-stone-400 dark:text-stone-500"
+                          isSelected ? "opacity-90" : "text-[#586B56]"
                         }`}
                       >
                         {count}
@@ -155,7 +155,7 @@ export function CleanWardrobeGrid({
               {isSampleActive && (
                 <button
                   onClick={onClearSamples}
-                  className="text-[11px] font-medium text-stone-400 hover:text-[#E0623A] underline underline-offset-4 ml-1 transition-colors cursor-pointer"
+                  className="text-[11px] font-medium text-[#586B56] hover:text-[#789575] underline underline-offset-4 ml-1 transition-colors cursor-pointer"
                 >
                   Clear Demo
                 </button>
@@ -164,9 +164,9 @@ export function CleanWardrobeGrid({
           ) : (
             <button
               onClick={onLoadSamples}
-              className="flex items-center gap-1.5 rounded-lg border border-[#D1DFD0] bg-[#E8EEE7] hover:bg-[#DCE6DA] text-[#2D4A34] dark:border-[#27332A] dark:bg-[#1E2E22] dark:text-[#D3E0D5] px-3.5 py-1.5 text-xs font-medium transition-all cursor-pointer shadow-2xs"
+              className="flex items-center gap-1.5 rounded-lg border border-[#CAD2B4] bg-[#EFF2E1] hover:bg-[#DCE2C6] text-[#202D1F] px-3.5 py-1.5 text-xs font-medium transition-all cursor-pointer shadow-2xs"
             >
-              <Layers className="h-3.5 w-3.5 text-[#2D4A34] dark:text-[#D3E0D5]" />
+              <Layers className="h-3.5 w-3.5 text-[#789575]" />
               <span>Load 4 Sample Clothes</span>
             </button>
           )}
@@ -207,11 +207,11 @@ export function CleanWardrobeGrid({
         </div>
       ) : viewMode === "circular" ? (
         /* 3D WebGL Circular Gallery Showcase */
-        <div className="relative w-full h-[520px] sm:h-[600px] rounded-3xl border border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)] bg-[#F8F5EE] dark:bg-[#0D0F12] shadow-luxury overflow-hidden">
+        <div className="relative w-full h-[520px] sm:h-[600px] rounded-3xl border border-[#CAD2B4] bg-[#E8ECE0] shadow-luxury overflow-hidden">
           <CircularGallery
             items={galleryItems}
             bend={2.6}
-            textColor={resolvedTheme === "dark" ? "#EDE7DC" : "#1C1917"}
+            textColor="#202D1F"
             borderRadius={0.06}
             font='500 15px "Plus Jakarta Sans", "Sora", system-ui, sans-serif'
             scrollSpeed={2.2}
@@ -233,10 +233,10 @@ export function CleanWardrobeGrid({
                   setInspectedItem(item);
                   setIsInspectionOpen(true);
                 }}
-                className="group flex flex-col rounded-2xl border border-[#EAE6DF] dark:border-[#2E2A26] bg-white dark:bg-[#1C1A17] overflow-hidden transition-all duration-300 hover:border-stone-400 dark:hover:border-stone-600 shadow-luxury hover:shadow-luxury-hover cursor-pointer"
+                className="group flex flex-col rounded-2xl border border-[#CAD2B4] bg-[#EFF2E1] overflow-hidden transition-all duration-300 hover:border-[#789575] shadow-luxury hover:shadow-luxury-hover cursor-pointer"
               >
                 {/* High-res Image Container with Next.js Image (3:4 aspect ratio) */}
-                <div className="relative aspect-[3/4] w-full overflow-hidden bg-stone-100 dark:bg-stone-800">
+                <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#DCE2C6]">
                   <Image
                     src={item.imageUrl}
                     alt={item.name}
@@ -252,7 +252,7 @@ export function CleanWardrobeGrid({
                       className={`rounded-md border px-2 py-0.5 text-[10px] font-medium capitalize backdrop-blur-md ${
                         item.pastelTag?.bg || "bg-[#E8EEE7]"
                       } ${item.pastelTag?.text || "text-[#2D4A34]"} ${
-                        item.pastelTag?.border || "border-[#D1DFD0]"
+                        item.pastelTag?.border || "border-[#CAD2B4]"
                       }`}
                     >
                       {item.category}
@@ -295,27 +295,27 @@ export function CleanWardrobeGrid({
                   </div>
                 </div>
 
-                {/* Harmonious Dual-Theme Details Section (clean light & dark) */}
-                <div className="p-3.5 sm:p-4 flex flex-col flex-1 bg-white dark:bg-[#101317] border-t border-[#EAE6DF] dark:border-[rgba(237,231,220,0.1)]">
+                {/* Harmonious Details Section */}
+                <div className="p-3.5 sm:p-4 flex flex-col flex-1 bg-[#EFF2E1] border-t border-[#CAD2B4]/60">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h3 className="font-medium text-xs sm:text-sm text-stone-900 dark:text-[#EDE7DC] line-clamp-1 group-hover:text-[#E0623A] dark:group-hover:text-[#E8913C] transition-colors">
+                      <h3 className="font-medium text-xs sm:text-sm text-[#202D1F] line-clamp-1 group-hover:text-[#789575] transition-colors">
                         {item.name}
                       </h3>
-                      <p className="text-[11px] text-stone-500 dark:text-[#9EA5A8] mt-0.5">
+                      <p className="text-[11px] text-[#586B56] mt-0.5">
                         {item.brand} • {item.subCategory}
                       </p>
                     </div>
-                    <span className="text-xs font-semibold text-[#E0623A] dark:text-[#EDE7DC] shrink-0 font-mono">
+                    <span className="text-xs font-semibold text-[#789575] shrink-0 font-mono">
                       {formatRupees(item.price)}
                     </span>
                   </div>
 
                   {/* Color Dot & Occasions Footer */}
-                  <div className="mt-auto pt-3 border-t border-stone-100 dark:border-[rgba(237,231,220,0.1)] flex items-center justify-between text-[11px]">
-                    <div className="flex items-center gap-1.5 text-stone-500 dark:text-[#9EA5A8]">
+                  <div className="mt-auto pt-3 border-t border-[#CAD2B4]/60 flex items-center justify-between text-[11px]">
+                    <div className="flex items-center gap-1.5 text-[#586B56]">
                       <span
-                        className="h-2.5 w-2.5 rounded-sm border border-black/10 dark:border-white/10 shrink-0 shadow-2xs"
+                        className="h-2.5 w-2.5 rounded-sm border border-black/10 shrink-0 shadow-2xs"
                         style={{ backgroundColor: item.colorHex }}
                       />
                       <span className="text-[11px] truncate max-w-[80px]">{item.colorName}</span>

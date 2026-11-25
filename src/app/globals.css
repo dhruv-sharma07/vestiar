@@ -36,67 +36,67 @@
 }
 
 :root {
-  /* High-Luxury Warm Alabaster & Linen Light Palette */
-  --background: #FBF9F5;             /* Warm alabaster fine linen ground */
-  --foreground: #1C1917;             /* Deep charcoal ink typography */
+  /* Signature Pale Sage Ivory & Muted Forest Sage Atelier Palette */
+  --background: #E5E8CE;             /* Pale Sage Ivory base canvas */
+  --foreground: #202D1F;             /* Deep Forest Pine typography (high contrast, ultra-readable) */
 
   /* Surface Ground for Cards, Modals & Insets */
-  --card: #FFFFFF;                   /* Crisp architectural white surfaces */
-  --card-foreground: #1C1917;
+  --card: #EFF2E1;                   /* Elevated soft linen sage */
+  --card-foreground: #202D1F;
 
-  --popover: #FFFFFF;
-  --popover-foreground: #1C1917;
+  --popover: #EFF2E1;
+  --popover-foreground: #202D1F;
 
-  /* Terracotta & Champagne Accents */
-  --primary: #E0623A;                /* Warm terracotta primary accent */
+  /* Muted Forest Sage Primary Accent */
+  --primary: #789575;                /* Muted Forest Sage primary accent */
   --primary-foreground: #FFFFFF;
 
-  --secondary: #F3EFEA;              /* Warm stone secondary */
-  --secondary-foreground: #292524;
+  --secondary: #DCE2C6;              /* Soft sage tint */
+  --secondary-foreground: #202D1F;
 
-  --muted: #F5F2EC;
-  --muted-foreground: #78716C;       /* Readable warm stone ink */
+  --muted: #DFE5C9;
+  --muted-foreground: #586B56;       /* Readable olive moss text */
 
-  --accent: #FDF8ED;                 /* Soft champagne accent */
-  --accent-foreground: #E0623A;
+  --accent: #D7DEBF;                 /* Subtle sage accent */
+  --accent-foreground: #202D1F;
 
-  --destructive: #DC2626;
+  --destructive: #C53030;
 
   /* Architectural Hairline Borders */
-  --border: #E8E3DA;                 /* Clean subtle warm border */
-  --input: #E4DED4;
-  --ring: #E0623A;
+  --border: #CAD2B4;                 /* Harmonious pale sage border */
+  --input: #CAD2B4;
+  --ring: #789575;
   --radius: 0.75rem;
 }
 
 .dark {
-  /* Dark Label Obsidian & Amber/Teal Luxury Palette */
-  --background: #0A0C0E;             /* Deep obsidian near-black ground */
-  --foreground: #EDE7DC;             /* Warm alabaster bone ink */
+  /* Permanently aligned to signature Sage Ivory & Forest Sage Atelier Palette */
+  --background: #E5E8CE;
+  --foreground: #202D1F;
 
-  --card: #121519;                   /* Noir surface ground */
-  --card-foreground: #EDE7DC;
+  --card: #EFF2E1;
+  --card-foreground: #202D1F;
 
-  --popover: #121519;
-  --popover-foreground: #EDE7DC;
+  --popover: #EFF2E1;
+  --popover-foreground: #202D1F;
 
-  --primary: #E8913C;                /* Rich amber accent */
-  --primary-foreground: #0A0C0E;
+  --primary: #789575;
+  --primary-foreground: #FFFFFF;
 
-  --secondary: #1A2027;              /* Deep slate cyan accent */
-  --secondary-foreground: #EDE7DC;
+  --secondary: #DCE2C6;
+  --secondary-foreground: #202D1F;
 
-  --muted: #181C22;
-  --muted-foreground: #A39B91;       /* Readable secondary ink */
+  --muted: #DFE5C9;
+  --muted-foreground: #586B56;
 
-  --accent: #1E232B;
-  --accent-foreground: #E8913C;
+  --accent: #D7DEBF;
+  --accent-foreground: #202D1F;
 
-  --destructive: #EF4444;
+  --destructive: #C53030;
 
-  --border: rgba(237, 231, 220, 0.14);
-  --input: rgba(237, 231, 220, 0.16);
-  --ring: #E8913C;
+  --border: #CAD2B4;
+  --input: #CAD2B4;
+  --ring: #789575;
 }
 
 @layer base {
@@ -108,9 +108,9 @@
     max-width: 100vw;
   }
   body {
-    background-color: #0A0C0E;
-    color: #EDE7DC;
-    @apply antialiased selection:bg-[#E8913C]/25 selection:text-[#EDE7DC];
+    background-color: #E5E8CE;
+    color: #202D1F;
+    @apply antialiased selection:bg-[#789575]/25 selection:text-[#202D1F];
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     letter-spacing: -0.015em;
   }
@@ -123,24 +123,24 @@ input:focus-visible,
 select:focus-visible {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px #E8913C;
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px #789575;
 }
 
 /* 3D Depth & Specular Glow Utilities */
 .shadow-luxury {
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.6), 0 4px 12px -2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 36px -8px rgba(32, 45, 31, 0.12), 0 4px 12px -2px rgba(32, 45, 31, 0.08);
 }
 
 .shadow-luxury-hover {
-  box-shadow: 0 24px 48px -10px rgba(0, 0, 0, 0.75), 0 0 20px 2px rgba(232, 145, 60, 0.12);
+  box-shadow: 0 24px 48px -10px rgba(32, 45, 31, 0.18), 0 0 20px 2px rgba(120, 149, 117, 0.25);
 }
 
 .shadow-amber-glow {
-  box-shadow: 0 0 25px -4px rgba(232, 145, 60, 0.25);
+  box-shadow: 0 0 25px -4px rgba(120, 149, 117, 0.35);
 }
 
 .shadow-teal-glow {
-  box-shadow: 0 0 25px -4px rgba(46, 107, 114, 0.25);
+  box-shadow: 0 0 25px -4px rgba(120, 149, 117, 0.35);
 }
 
 /* Ambient Drifting Living Canvas (25s Sinusoidal Loops) */

@@ -81,12 +81,8 @@ export function Interactive3DBackground() {
     };
     window.addEventListener("resize", handleResize);
 
-    const isDark = resolvedTheme === "dark";
-
-    // Palette for 3D particles based on current theme
-    const particleColors = isDark
-      ? ["#E8913C", "#FFE6A3", "#2E6B72", "#EDE7DC", "#C29B38"]
-      : ["#E0623A", "#C29B38", "#8A7968", "#D4AF37", "#9E6D4E"];
+    // Palette for 3D particles based on Pale Sage Ivory & Muted Forest Sage
+    const particleColors = ["#789575", "#5C7659", "#A6B8A3", "#435841", "#CAD2B4"];
 
     // Initialize 3D particle dust
     const PARTICLE_COUNT = 65;
@@ -241,39 +237,33 @@ export function Interactive3DBackground() {
           transform: `translate3d(${orbTransform.translateX}px, ${orbTransform.translateY}px, 0px) rotateX(${orbTransform.rotateX}deg) rotateY(${orbTransform.rotateY}deg)`,
         }}
       >
-        {/* Orb 1: Primary Warm Amber / Terracotta 3D Mesh Orb */}
+        {/* Orb 1: Primary Muted Forest Sage 3D Mesh Orb */}
         <div
           className="absolute -top-[12%] -left-[10%] h-[65vw] w-[65vw] max-w-[850px] max-h-[850px] rounded-full blur-[110px] transition-all duration-700"
           style={{
             transform: "translateZ(60px)",
-            opacity: isDark ? 0.32 : 0.16,
-            background: isDark
-              ? "radial-gradient(circle, #E8913C 0%, rgba(232, 145, 60, 0.45) 40%, transparent 75%)"
-              : "radial-gradient(circle, #E0623A 0%, rgba(224, 98, 58, 0.3) 45%, transparent 75%)",
+            opacity: 0.35,
+            background: "radial-gradient(circle, #789575 0%, rgba(120, 149, 117, 0.4) 40%, transparent 75%)",
           }}
         />
 
-        {/* Orb 2: Secondary Champagne Gold / Deep Cyan Orb */}
+        {/* Orb 2: Secondary Pale Sage Ivory Warm Light Orb */}
         <div
           className="absolute top-[35%] -right-[12%] h-[70vw] w-[70vw] max-w-[950px] max-h-[950px] rounded-full blur-[120px] transition-all duration-700"
           style={{
             transform: "translateZ(-40px)",
-            opacity: isDark ? 0.28 : 0.18,
-            background: isDark
-              ? "radial-gradient(circle, #2E6B72 0%, rgba(46, 107, 114, 0.4) 40%, transparent 75%)"
-              : "radial-gradient(circle, #E6C875 0%, rgba(230, 200, 117, 0.35) 45%, transparent 75%)",
+            opacity: 0.4,
+            background: "radial-gradient(circle, #CCD8B8 0%, rgba(229, 232, 206, 0.5) 45%, transparent 75%)",
           }}
         />
 
-        {/* Orb 3: Subtle Center Floating Anchor Orb */}
+        {/* Orb 3: Subtle Center Floating Sage Anchor Orb */}
         <div
           className="absolute top-[68%] left-[20%] h-[50vw] w-[50vw] max-w-[700px] max-h-[700px] rounded-full blur-[100px] transition-all duration-700"
           style={{
             transform: "translateZ(20px)",
-            opacity: isDark ? 0.2 : 0.14,
-            background: isDark
-              ? "radial-gradient(circle, #D4AF37 0%, rgba(232, 145, 60, 0.25) 50%, transparent 80%)"
-              : "radial-gradient(circle, #F3EFEA 0%, rgba(224, 175, 90, 0.25) 45%, transparent 80%)",
+            opacity: 0.25,
+            background: "radial-gradient(circle, #789575 0%, rgba(120, 149, 117, 0.25) 50%, transparent 80%)",
           }}
         />
 
@@ -282,10 +272,8 @@ export function Interactive3DBackground() {
           className="absolute inset-[-10%] transition-opacity duration-500"
           style={{
             transform: "translateZ(-80px)",
-            opacity: isDark ? 0.045 : 0.035,
-            backgroundImage: isDark
-              ? "linear-gradient(to right, #EDE7DC 1px, transparent 1px), linear-gradient(to bottom, #EDE7DC 1px, transparent 1px)"
-              : "linear-gradient(to right, #1C1917 1px, transparent 1px), linear-gradient(to bottom, #1C1917 1px, transparent 1px)",
+            opacity: 0.04,
+            backgroundImage: "linear-gradient(to right, #202D1F 1px, transparent 1px), linear-gradient(to bottom, #202D1F 1px, transparent 1px)",
             backgroundSize: "72px 72px",
           }}
         />
@@ -301,9 +289,7 @@ export function Interactive3DBackground() {
       <div
         className="absolute inset-0 pointer-events-none transition-opacity duration-300"
         style={{
-          background: isDark
-            ? `radial-gradient(650px circle at ${orbTransform.cursorX} ${orbTransform.cursorY}, rgba(232, 145, 60, 0.075), transparent 75%)`
-            : `radial-gradient(650px circle at ${orbTransform.cursorX} ${orbTransform.cursorY}, rgba(224, 98, 58, 0.06), transparent 75%)`,
+          background: `radial-gradient(650px circle at ${orbTransform.cursorX} ${orbTransform.cursorY}, rgba(120, 149, 117, 0.12), transparent 75%)`,
         }}
       />
 
@@ -311,9 +297,7 @@ export function Interactive3DBackground() {
       <div
         className="absolute inset-0 pointer-events-none transition-all duration-700"
         style={{
-          background: isDark
-            ? "radial-gradient(ellipse at center, transparent 40%, rgba(10, 12, 14, 0.75) 100%)"
-            : "radial-gradient(ellipse at center, transparent 50%, rgba(235, 230, 222, 0.6) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 55%, rgba(206, 212, 180, 0.5) 100%)",
         }}
       />
     </div>

@@ -7,10 +7,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FBF9F5" },
-    { media: "(prefers-color-scheme: dark)", color: "#141210" },
-  ],
+  themeColor: "#E5E8CE",
 };
 
 export const metadata: Metadata = {
@@ -55,12 +52,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-x-clip scroll-smooth">
-      <body className="min-h-screen overflow-x-clip bg-background text-foreground antialiased selection:bg-[#E0623A]/15 selection:text-[#E0623A] font-sans">
+    <html lang="en" suppressHydrationWarning className="overflow-x-clip scroll-smooth light">
+      <body className="min-h-screen overflow-x-clip bg-background text-foreground antialiased selection:bg-[#789575]/25 selection:text-[#202D1F] font-sans">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          forcedTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <TooltipProvider>{children}</TooltipProvider>

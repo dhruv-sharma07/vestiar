@@ -305,13 +305,13 @@ export function CleanUploadBox({
       <div className="mx-auto max-w-3xl">
         {/* Section Title */}
         <div className="text-center mb-8">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#E0623A] dark:text-[#E8913C]">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#789575]">
             Garment Digitization
           </span>
-          <h2 className="text-2xl sm:text-3xl font-serif font-normal text-[#1C1917] dark:text-[#EDE7DC] mt-1">
+          <h2 className="text-2xl sm:text-3xl font-serif font-normal text-[#202D1F] mt-1">
             Quick Add to Wardrobe
           </h2>
-          <p className="text-xs sm:text-sm text-stone-600 dark:text-[#9EA5A8] mt-1">
+          <p className="text-xs sm:text-sm text-[#586B56] mt-1">
             Upload or drop a clothing photo. Visual classifier detects categories, colors, fabrics, and occasion suitability.
           </p>
         </div>
@@ -326,8 +326,8 @@ export function CleanUploadBox({
             onClick={() => fileInputRef.current?.click()}
             className={`group relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-8 sm:p-12 text-center cursor-pointer transition-all duration-300 shadow-luxury ${
               dragActive
-                ? "border-[#E0623A] bg-[#FAF8F5] dark:bg-[#181C22] scale-[1.01]"
-                : "border-[#E8E3DA] dark:border-[rgba(237,231,220,0.15)] bg-white/90 dark:bg-[#101317]/90 hover:border-[#E0623A] dark:hover:border-[#E8913C] hover:bg-[#FAF8F5] dark:hover:bg-[#181C22]"
+                ? "border-[#789575] bg-[#E8ECE0] scale-[1.01]"
+                : "border-[#CAD2B4] bg-[#EFF2E1] hover:border-[#789575] hover:bg-[#E8ECE0]"
             }`}
           >
             <input
@@ -338,26 +338,26 @@ export function CleanUploadBox({
               className="hidden"
             />
 
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-stone-100 dark:bg-[#181C22] text-[#E0623A] dark:text-[#E8913C] mb-3 transition-transform duration-300 group-hover:scale-105 border border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#DCE2C6] text-[#789575] mb-3 transition-transform duration-300 group-hover:scale-105 border border-[#CAD2B4]">
               <UploadCloud className="h-6 w-6" />
             </div>
 
-            <h3 className="font-medium text-sm sm:text-base text-[#1C1917] dark:text-[#EDE7DC]">
+            <h3 className="font-normal text-sm sm:text-base text-[#202D1F]">
               Drag &amp; drop your clothing photo here
             </h3>
-            <p className="text-xs text-stone-600 dark:text-[#9EA5A8] mt-1">
-              or <span className="font-semibold text-[#E0623A] dark:text-[#E8913C] underline underline-offset-2">browse files</span> from your gallery
+            <p className="text-xs text-[#586B56] mt-1">
+              or <span className="font-semibold text-[#789575] underline underline-offset-2">browse files</span> from your gallery
             </p>
-            <span className="text-[10px] text-stone-400 dark:text-stone-500 mt-3">
+            <span className="text-[10px] text-[#586B56] mt-3">
               Supports JPG, PNG, WEBP, HEIC: Automated Color &amp; Silhouette Analysis
             </span>
           </div>
         ) : (
           /* Preview & Auto-Tag Review Card */
-          <div className="rounded-2xl border border-[#EAE6DF] dark:border-[#2E2A26] bg-white dark:bg-[#1C1A17] p-6 sm:p-8 shadow-luxury relative overflow-hidden">
+          <div className="rounded-2xl border border-[#CAD2B4] bg-[#EFF2E1] p-6 sm:p-8 shadow-luxury relative overflow-hidden">
             {/* Analyzing Shimmer Bar */}
             {isAnalyzing && (
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-stone-300 via-[#E0623A] to-stone-400 animate-pulse" />
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#CAD2B4] via-[#789575] to-[#586B56] animate-pulse" />
             )}
 
             {/* Error Banner with Retry */}
@@ -555,11 +555,11 @@ export function CleanUploadBox({
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-4 border-t border-stone-100 dark:border-stone-800/80">
+            <div className="flex items-center justify-end gap-2 pt-4 border-t border-[#CAD2B4]/60">
               <button
                 type="button"
                 onClick={() => setSelectedImage(null)}
-                className="rounded-lg px-4 py-2 text-xs font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 cursor-pointer"
+                className="rounded-lg px-4 py-2 text-xs font-medium text-[#586B56] hover:text-[#202D1F] cursor-pointer"
               >
                 Cancel
               </button>
@@ -567,7 +567,7 @@ export function CleanUploadBox({
                 type="button"
                 onClick={handleSaveToCloset}
                 disabled={isSaving || isAdded || isAnalyzing}
-                className="flex items-center gap-1.5 rounded-lg bg-[#E0623A] hover:bg-[#C8532F] text-white px-5 py-2 text-xs font-medium transition-all shadow-sm cursor-pointer disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-lg bg-[#789575] hover:bg-[#668363] text-white px-5 py-2 text-xs font-medium transition-all shadow-sm cursor-pointer disabled:opacity-50"
               >
                 {isSaving ? (
                   <>
@@ -592,7 +592,7 @@ export function CleanUploadBox({
 
         {/* Quick Sample Photos Picker */}
         <div className="mt-8 text-center">
-          <span className="text-[11px] font-medium text-stone-400 dark:text-stone-500 uppercase tracking-wider block mb-3">
+          <span className="text-[11px] font-medium text-[#586B56] uppercase tracking-wider block mb-3">
             Or test with a sample gallery piece:
           </span>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -601,9 +601,9 @@ export function CleanUploadBox({
                 key={idx}
                 type="button"
                 onClick={() => handleSelectPreset(sample)}
-                className="flex items-center gap-3 rounded-xl border border-[#EAE6DF] dark:border-[#2E2A26] bg-white/80 dark:bg-stone-900/40 p-2.5 text-left hover:border-stone-400 dark:hover:border-stone-600 transition-all group cursor-pointer shadow-2xs"
+                className="flex items-center gap-3 rounded-xl border border-[#CAD2B4] bg-[#EFF2E1] p-2.5 text-left hover:border-[#789575] transition-all group cursor-pointer shadow-2xs"
               >
-                <div className="relative h-11 w-11 rounded-lg overflow-hidden shrink-0 bg-stone-100 dark:bg-stone-800">
+                <div className="relative h-11 w-11 rounded-lg overflow-hidden shrink-0 bg-[#DCE2C6]">
                   <Image
                     src={sample.imageUrl}
                     alt={sample.name}

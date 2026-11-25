@@ -319,15 +319,15 @@ export function CleanOccasionBar({
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-stone-500 dark:text-[#9EA5A8]">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#586B56]">
               Occasion Pairing
             </span>
-            <span className="text-stone-300 dark:text-[rgba(237,231,220,0.3)]">:</span>
-            <span className="text-[11px] font-medium text-[#E0623A] dark:text-[#E8913C]">
+            <span className="text-[#CAD2B4]">:</span>
+            <span className="text-[11px] font-medium text-[#789575]">
               Editorial Direction
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-serif font-normal text-[#1C1917] dark:text-[#EDE7DC] mt-1">
+          <h2 className="text-2xl sm:text-3xl font-serif font-normal text-[#202D1F] mt-1">
             Outfit for the occasion
           </h2>
         </div>
@@ -336,12 +336,12 @@ export function CleanOccasionBar({
         <div className="flex items-center gap-2 self-start sm:self-end">
           <button
             onClick={() => setIsLookbookOpen(true)}
-            className="flex items-center gap-1.5 rounded-lg border border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)] bg-white dark:bg-[#101317] px-3.5 py-1.5 text-xs font-medium text-stone-700 dark:text-[#EDE7DC] hover:border-[#E0623A] dark:hover:border-[#E8913C] transition-all cursor-pointer shadow-2xs"
+            className="flex items-center gap-1.5 rounded-lg border border-[#CAD2B4] bg-[#EFF2E1] px-3.5 py-1.5 text-xs font-medium text-[#202D1F] hover:border-[#789575] transition-all cursor-pointer shadow-2xs"
           >
-            <Bookmark className="h-3.5 w-3.5 text-[#E0623A] dark:text-[#E8913C]" />
+            <Bookmark className="h-3.5 w-3.5 text-[#789575]" />
             <span>Lookbook</span>
             {savedOutfits.length > 0 && (
-              <span className="flex h-4 min-w-4 items-center justify-center rounded-md bg-[#E0623A] dark:bg-[#E8913C] text-white dark:text-[#0A0C0E] text-[10px] px-1 font-semibold">
+              <span className="flex h-4 min-w-4 items-center justify-center rounded-md bg-[#789575] text-white text-[10px] px-1 font-semibold">
                 {savedOutfits.length}
               </span>
             )}
@@ -349,9 +349,9 @@ export function CleanOccasionBar({
 
           <button
             onClick={() => setIsCapsuleOpen(true)}
-            className="flex items-center gap-1.5 rounded-lg border border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)] bg-white dark:bg-[#101317] px-3.5 py-1.5 text-xs font-medium text-stone-700 dark:text-[#EDE7DC] hover:border-[#E0623A] dark:hover:border-[#E8913C] transition-all cursor-pointer shadow-2xs"
+            className="flex items-center gap-1.5 rounded-lg border border-[#CAD2B4] bg-[#EFF2E1] px-3.5 py-1.5 text-xs font-medium text-[#202D1F] hover:border-[#789575] transition-all cursor-pointer shadow-2xs"
           >
-            <Plane className="h-3.5 w-3.5 text-[#2E6B72]" />
+            <Plane className="h-3.5 w-3.5 text-[#789575]" />
             <span>Trip Capsule</span>
           </button>
         </div>
@@ -370,8 +370,8 @@ export function CleanOccasionBar({
                 onClick={() => handleSelectOccasion(occ.id)}
                 className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-medium transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? "bg-[#E0623A] dark:bg-[#E8913C] text-white dark:text-[#0A0C0E] font-semibold shadow-xs"
-                    : "border border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)] bg-white dark:bg-[#101317] text-stone-700 dark:text-[#9EA5A8] hover:border-[#E0623A] dark:hover:border-[#E8913C] hover:text-[#1C1917] dark:hover:text-[#EDE7DC]"
+                    ? "bg-[#789575] text-white font-semibold shadow-xs"
+                    : "border border-[#CAD2B4] bg-[#EFF2E1] text-[#202D1F] hover:border-[#789575] hover:bg-[#DCE2C6]"
                 }`}
               >
                 <Icon className="h-3.5 w-3.5 shrink-0" />
@@ -382,7 +382,7 @@ export function CleanOccasionBar({
         </div>
 
         {/* Weather Conditions Selector */}
-        <div className="flex items-center gap-1 self-start md:self-auto bg-stone-100/90 dark:bg-[#101317] p-1 rounded-lg border border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)]">
+        <div className="flex items-center gap-1 self-start md:self-auto bg-[#DCE2C6]/60 p-1 rounded-lg border border-[#CAD2B4]">
           {WEATHER_OPTIONS.map((w) => {
             const Icon = w.icon;
             const isSelected = weatherCondition === w.id;
@@ -392,8 +392,8 @@ export function CleanOccasionBar({
                 onClick={() => setWeatherCondition(w.id as any)}
                 className={`flex items-center gap-1 rounded-md px-2.5 py-1 text-[11px] font-medium transition-all cursor-pointer ${
                   isSelected
-                    ? "bg-[#E0623A]/15 dark:bg-[#E8913C]/20 border border-[#E0623A]/40 dark:border-[rgba(232,145,60,0.4)] text-[#E0623A] dark:text-[#E8913C] font-semibold shadow-2xs"
-                    : "text-stone-600 dark:text-[#9EA5A8] hover:text-stone-900 dark:hover:text-[#EDE7DC]"
+                    ? "bg-[#789575] text-white font-semibold shadow-2xs"
+                    : "text-[#586B56] hover:text-[#202D1F]"
                 }`}
               >
                 <Icon className="h-3 w-3" />
@@ -406,36 +406,36 @@ export function CleanOccasionBar({
 
       {/* Outfit Card or Zero-State */}
       {!currentOutfit || items.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-[#EAE6DF] dark:border-[#2E2A26] bg-white/70 dark:bg-stone-900/40 p-8 sm:p-12 text-center shadow-luxury">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[#FDF8ED] dark:bg-[#251E12] text-[#7B6127] mb-3">
-            <Compass className="h-5 w-5 text-[#7B6127]" />
+        <div className="rounded-2xl border border-dashed border-[#CAD2B4] bg-[#EFF2E1]/70 p-8 sm:p-12 text-center shadow-luxury">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[#DCE2C6] text-[#789575] mb-3">
+            <Compass className="h-5 w-5 text-[#789575]" />
           </div>
-          <h3 className="text-lg font-serif font-normal text-[#1C1917] dark:text-[#F5F2EC]">
+          <h3 className="text-lg font-serif font-normal text-[#202D1F]">
             Add clothes to unlock occasion pairing
           </h3>
-          <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1 max-w-sm mx-auto">
+          <p className="text-xs sm:text-sm text-[#586B56] mt-1 max-w-sm mx-auto">
             Once garments are cataloged, harmonious tops, bottoms, and footwear are paired automatically for every event.
           </p>
           <button
             onClick={onLoadSamples}
-            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-[#D1DFD0] bg-[#E8EEE7] hover:bg-[#DCE6DA] text-[#2D4A34] dark:border-[#27332A] dark:bg-[#1E2E22] dark:text-[#D3E0D5] px-5 py-2.5 text-xs font-medium transition-all cursor-pointer shadow-xs"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-[#CAD2B4] bg-[#EFF2E1] hover:bg-[#DCE2C6] text-[#202D1F] px-5 py-2.5 text-xs font-medium transition-all cursor-pointer shadow-xs"
           >
-            <Layers className="h-3.5 w-3.5 text-[#2D4A34] dark:text-[#D3E0D5]" />
+            <Layers className="h-3.5 w-3.5 text-[#789575]" />
             <span>Load 4 Sample Clothes to Test</span>
           </button>
         </div>
       ) : (
         /* Aesthetic Outfit Combination Card with Tactile 3D Physics */
         <TactileCard maxTilt={1.6} elevation={4}>
-          <div className="relative rounded-2xl border border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)] bg-white dark:bg-[#101317] p-6 sm:p-8 shadow-luxury transition-all duration-300">
+          <div className="relative rounded-2xl border border-[#CAD2B4] bg-[#EFF2E1] p-6 sm:p-8 shadow-luxury transition-all duration-300">
             {/* Card Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-[#EAE6DF] dark:border-[rgba(237,231,220,0.13)] gap-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-[#CAD2B4]/60 gap-4">
               <div>
                 <div className="flex items-center gap-2.5 flex-wrap">
-                  <h3 className="text-xl sm:text-2xl font-serif text-[#1C1917] dark:text-[#EDE7DC] font-normal">
+                  <h3 className="text-xl sm:text-2xl font-serif text-[#202D1F] font-normal">
                     {currentOutfit.title}
                   </h3>
-                  <span className="rounded-md border border-[#E0623A]/30 dark:border-[#E8913C]/30 bg-[#E0623A]/10 dark:bg-[#E8913C]/10 px-2 py-0.5 text-[11px] font-medium text-[#E0623A] dark:text-[#E8913C]">
+                  <span className="rounded-md border border-[#789575]/40 bg-[#DCE2C6] px-2 py-0.5 text-[11px] font-medium text-[#789575]">
                     {currentOutfit.matchScore}% Match
                   </span>
                   <span className="rounded-md border border-[#2E6B72]/30 bg-[#2E6B72]/10 px-2 py-0.5 text-[10px] font-medium text-[#2E6B72] dark:text-[#EDE7DC] flex items-center gap-1">

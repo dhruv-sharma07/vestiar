@@ -27,33 +27,33 @@ export function CleanHero({
         {/* Bespoke Luxury Monogram Crest */}
         <div className="mb-6 flex flex-col items-center">
           <VestiarMonogram size={56} variant="crest" className="mb-3 hover:scale-105 transition-transform" />
-          <span className="font-serif tracking-[0.3em] text-[11px] sm:text-xs uppercase font-light text-stone-500 dark:text-stone-400">
+          <span className="font-serif tracking-[0.3em] text-[11px] sm:text-xs uppercase font-normal text-[#586B56]">
             Vestiar &bull; Atelier Privé
           </span>
         </div>
 
         {/* Editorial Architectural Tag */}
-        <div className="inline-flex items-center gap-2.5 rounded-full border border-[#EAE6DF] dark:border-[#2E2A26] bg-white/80 dark:bg-[#1C1A17]/80 backdrop-blur-md px-4 py-1.5 text-xs text-[#1C1917] dark:text-[#F5F2EC] mb-5 shadow-2xs">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#E0623A] animate-pulse" />
-          <span className="font-serif tracking-wider uppercase text-[10px] text-stone-500 dark:text-stone-400">
+        <div className="inline-flex items-center gap-2.5 rounded-full border border-[#CAD2B4] bg-[#EFF2E1]/90 backdrop-blur-md px-4 py-1.5 text-xs text-[#202D1F] mb-5 shadow-2xs">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#789575] animate-pulse" />
+          <span className="font-serif tracking-wider uppercase text-[10px] text-[#586B56]">
             Digital Archive
           </span>
-          <span className="text-stone-300 dark:text-stone-700">&bull;</span>
-          <span className="text-xs font-serif italic text-stone-600 dark:text-stone-300">
+          <span className="text-[#CAD2B4]">&bull;</span>
+          <span className="text-xs font-serif italic text-[#485B46]">
             Occasion Styling &amp; Curated Silhouettes
           </span>
         </div>
 
         {/* Bespoke Roman Luxury Headline */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif tracking-tight text-[#1C1917] dark:text-[#F5F2EC] font-normal leading-[1.1] max-w-2xl">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif tracking-tight text-[#202D1F] font-normal leading-[1.1] max-w-2xl">
           The sanctuary of <br />
-          <span className="italic font-light text-[#E0623A]">
+          <span className="italic font-normal text-[#789575]">
             intentional dressing.
           </span>
         </h1>
 
         {/* Refined Subtext */}
-        <p className="mt-5 text-sm sm:text-base text-stone-600 dark:text-stone-400 font-normal max-w-xl mx-auto leading-relaxed">
+        <p className="mt-5 text-sm sm:text-base text-[#485B46] font-normal max-w-xl mx-auto leading-relaxed">
           An intimate digital salon for cataloging everyday garments. Tonal harmony algorithms, silhouette proportions, and bespoke occasion curation.
         </p>
 
@@ -63,13 +63,13 @@ export function CleanHero({
           {onToggleDoors && (
             <button
               onClick={onToggleDoors}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-[#D4AF37]/50 bg-gradient-to-r from-[#FAF6EE] to-[#F5EEDD] dark:from-[#262017] dark:to-[#1E1911] hover:border-[#D4AF37] text-[#7A5A1B] dark:text-[#E8C97E] px-5 py-2.5 text-xs sm:text-sm font-medium transition-all shadow-xs cursor-pointer group"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-[#789575]/40 bg-[#DCE2C6]/60 hover:border-[#789575] text-[#202D1F] px-5 py-2.5 text-xs sm:text-sm font-medium transition-all shadow-xs cursor-pointer group"
               title="Experience the theatrical 3D wardrobe doors animation"
             >
               {isDoorsOpen ? (
-                <DoorClosed className="h-4 w-4 text-[#D4AF37] group-hover:scale-110 transition-transform" />
+                <DoorClosed className="h-4 w-4 text-[#789575] group-hover:scale-110 transition-transform" />
               ) : (
-                <DoorOpen className="h-4 w-4 text-[#D4AF37] group-hover:scale-110 transition-transform" />
+                <DoorOpen className="h-4 w-4 text-[#789575] group-hover:scale-110 transition-transform" />
               )}
               <span>{isDoorsOpen ? "Close Wardrobe Doors" : "Open Wardrobe Doors"}</span>
             </button>
@@ -78,7 +78,7 @@ export function CleanHero({
           {/* Upload Button */}
           <button
             onClick={onScrollToUpload}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-[#E0623A] hover:bg-[#C8532F] text-white px-5 py-2.5 text-xs sm:text-sm font-medium transition-all shadow-sm cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-[#789575] hover:bg-[#668363] text-white px-5 py-2.5 text-xs sm:text-sm font-medium transition-all shadow-sm cursor-pointer"
           >
             <Plus className="h-4 w-4" />
             <span>Upload Garment</span>
@@ -88,15 +88,15 @@ export function CleanHero({
           {isEmpty ? (
             <button
               onClick={onLoadSamples}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-[#D1DFD0] bg-[#E8EEE7] hover:bg-[#DCE6DA] text-[#2D4A34] dark:border-[#27332A] dark:bg-[#1E2E22] dark:text-[#D3E0D5] px-5 py-2.5 text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-2xs"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-[#CAD2B4] bg-[#EFF2E1] hover:bg-[#DCE2C6] text-[#202D1F] px-5 py-2.5 text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-2xs"
             >
-              <Sparkles className="h-3.5 w-3.5 text-[#2D4A34] dark:text-[#D3E0D5]" />
+              <Sparkles className="h-3.5 w-3.5 text-[#789575]" />
               <span>Load 4 Sample Pieces</span>
             </button>
           ) : (
             <button
               onClick={onScrollToCloset}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-[#EAE6DF] dark:border-[#2E2A26] bg-white/80 dark:bg-[#1C1A17]/80 hover:border-stone-400 text-stone-700 dark:text-stone-300 px-5 py-2.5 text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-2xs"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-[#CAD2B4] bg-[#EFF2E1] hover:bg-[#DCE2C6] text-[#202D1F] px-5 py-2.5 text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-2xs"
             >
               <Layers className="h-4 w-4 text-stone-400" />
               <span>View Collection Archive</span>

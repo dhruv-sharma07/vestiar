@@ -8,29 +8,29 @@ export const metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-[#FBF9F5] dark:bg-[#141210] text-[#1C1917] dark:text-[#F5F2EC]">
+    <div className="min-h-screen bg-[#E5E8CE] text-[#202D1F]">
       {/* Editorial Navigation */}
-      <nav className="sticky top-0 z-30 border-b border-[#EAE6DF] dark:border-[#2E2A26] bg-[#FBF9F5]/90 dark:bg-[#141210]/90 backdrop-blur-md">
+      <nav className="sticky top-0 z-30 border-b border-[#CAD2B4] bg-[#E5E8CE]/90 backdrop-blur-md">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 py-4 flex items-center justify-between">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-medium text-stone-600 dark:text-stone-300 hover:text-[#1C1917] dark:hover:text-white transition-colors cursor-pointer"
+            className="inline-flex items-center gap-2 text-xs font-medium text-[#586B56] hover:text-[#202D1F] transition-colors cursor-pointer"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
-            <span>Return to Closet</span>
+            <span>Return to Atelier</span>
           </Link>
 
-          <Link href="/" className="font-serif text-lg font-medium tracking-tight">
-            FitIQ
+          <Link href="/" className="font-serif text-lg font-normal tracking-tight text-[#202D1F]">
+            VESTIAR
           </Link>
         </div>
       </nav>
 
       {/* Main Document Content */}
       <main className="mx-auto max-w-4xl px-4 sm:px-6 py-12 sm:py-16">
-        <div className="border-b border-[#EAE6DF] dark:border-[#2E2A26] pb-8 mb-10">
+        <div className="border-b border-[#CAD2B4] pb-8 mb-10">
           <div className="flex items-center gap-2 mb-3">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#E8EEE7] dark:bg-[#1E2E22] text-[#2D4A34] dark:text-[#D3E0D5]">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#EFF2E1] text-[#789575]">
               <ShieldCheck className="h-3.5 w-3.5" />
             </span>
             <span className="text-xs font-semibold uppercase tracking-wider text-stone-500">

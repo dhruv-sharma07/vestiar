@@ -69,12 +69,12 @@ export function WardrobeEntrance({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.8, delay: 0.3 } }}
-            className="absolute inset-0 bg-[#0E0C0A]/75 dark:bg-black/85 backdrop-blur-md z-10"
+            className="absolute inset-0 bg-[#202D1F]/65 backdrop-blur-md z-10"
           />
         )}
       </AnimatePresence>
 
-      {/* Golden Backlight Radiance Burst when doors part */}
+      {/* Radiance Burst when doors part */}
       <motion.div
         animate={
           isOpen
@@ -88,7 +88,7 @@ export function WardrobeEntrance({
           className="w-[85vw] h-[85vw] max-w-[900px] max-h-[900px] rounded-full blur-[100px]"
           style={{
             background:
-              "radial-gradient(circle, rgba(224, 98, 58, 0.4) 0%, rgba(245, 208, 140, 0.25) 45%, transparent 75%)",
+              "radial-gradient(circle, rgba(120, 149, 117, 0.45) 0%, rgba(229, 232, 206, 0.3) 45%, transparent 75%)",
           }}
         />
       </motion.div>
@@ -116,26 +116,26 @@ export function WardrobeEntrance({
               }
         }
         style={{ transformOrigin: "left center" }}
-        className="absolute top-0 bottom-0 left-0 w-1/2 z-20 shadow-2xl flex flex-col justify-between border-r border-[#D9D3C7]/90 dark:border-[#38332E] overflow-hidden"
+        className="absolute top-0 bottom-0 left-0 w-1/2 z-20 shadow-2xl flex flex-col justify-between border-r border-[#CAD2B4] overflow-hidden"
       >
         {/* Door Surface Material: Fluted Architectural Paneling */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#EDE8DD] via-[#F8F5EE] to-[#E7E1D4] dark:from-[#171513] dark:via-[#211E1A] dark:to-[#191614]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#DCE2C6] via-[#EFF2E1] to-[#E5E8CE]" />
 
         {/* Fluted Vertical Grooves */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.025)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:24px_100%]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(32,45,31,0.03)_1px,transparent_1px)] [background-size:24px_100%]" />
 
         {/* Inset Architectural Moldings */}
-        <div className="absolute inset-6 sm:inset-10 border border-[#D9D3C7]/80 dark:border-[#3A342E]/70 rounded-xl pointer-events-none" />
-        <div className="absolute inset-8 sm:inset-12 border border-[#EAE6DF]/90 dark:border-[#2C2723]/80 rounded-lg pointer-events-none" />
+        <div className="absolute inset-6 sm:inset-10 border border-[#CAD2B4]/80 rounded-xl pointer-events-none" />
+        <div className="absolute inset-8 sm:inset-12 border border-[#DCE2C6] rounded-lg pointer-events-none" />
 
         {/* Top Atelier Inscription */}
         <div className="relative p-8 sm:p-12 z-10 flex items-center gap-3">
           <VestiarMonogram size={30} />
           <div>
-            <span className="font-serif tracking-[0.25em] text-[11px] uppercase font-light text-stone-700 dark:text-stone-300 block">
+            <span className="font-serif tracking-[0.25em] text-[11px] uppercase font-normal text-[#202D1F] block">
               Vestiar
             </span>
-            <span className="text-[9px] tracking-widest text-stone-400 dark:text-stone-500 uppercase font-mono">
+            <span className="text-[9px] tracking-widest text-[#586B56] uppercase font-mono">
               Atelier Privé &bull; Porte Gauche
             </span>
           </div>
@@ -179,24 +179,24 @@ export function WardrobeEntrance({
               }
         }
         style={{ transformOrigin: "right center" }}
-        className="absolute top-0 bottom-0 right-0 w-1/2 z-20 shadow-2xl flex flex-col justify-between border-l border-[#D9D3C7]/90 dark:border-[#38332E] overflow-hidden"
+        className="absolute top-0 bottom-0 right-0 w-1/2 z-20 shadow-2xl flex flex-col justify-between border-l border-[#CAD2B4] overflow-hidden"
       >
         {/* Door Surface Material */}
-        <div className="absolute inset-0 bg-gradient-to-l from-[#EDE8DD] via-[#F8F5EE] to-[#E7E1D4] dark:from-[#171513] dark:via-[#211E1A] dark:to-[#191614]" />
+        <div className="absolute inset-0 bg-gradient-to-l from-[#DCE2C6] via-[#EFF2E1] to-[#E5E8CE]" />
 
         {/* Fluted Vertical Grooves */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.025)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:24px_100%]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(32,45,31,0.03)_1px,transparent_1px)] [background-size:24px_100%]" />
 
         {/* Inset Architectural Moldings */}
-        <div className="absolute inset-6 sm:inset-10 border border-[#D9D3C7]/80 dark:border-[#3A342E]/70 rounded-xl pointer-events-none" />
-        <div className="absolute inset-8 sm:inset-12 border border-[#EAE6DF]/90 dark:border-[#2C2723]/80 rounded-lg pointer-events-none" />
+        <div className="absolute inset-6 sm:inset-10 border border-[#CAD2B4]/80 rounded-xl pointer-events-none" />
+        <div className="absolute inset-8 sm:inset-12 border border-[#DCE2C6] rounded-lg pointer-events-none" />
 
         {/* Top Subtitle */}
         <div className="relative p-8 sm:p-12 z-10 self-end text-right">
-          <span className="font-serif tracking-[0.25em] text-[11px] uppercase font-light text-stone-700 dark:text-stone-300 block">
+          <span className="font-serif tracking-[0.25em] text-[11px] uppercase font-normal text-[#202D1F] block">
             Haute Garde-Robe
           </span>
-          <span className="text-[9px] tracking-widest text-stone-400 dark:text-stone-500 uppercase font-mono">
+          <span className="text-[9px] tracking-widest text-[#586B56] uppercase font-mono">
             Salon Digital &bull; Porte Droite
           </span>
         </div>
@@ -210,13 +210,13 @@ export function WardrobeEntrance({
 
         {/* Bottom Editorial Archive */}
         <div className="relative p-8 sm:p-12 z-10 self-end text-right">
-          <span className="font-mono text-[10px] tracking-widest text-stone-400 dark:text-stone-500 uppercase">
+          <span className="font-mono text-[10px] tracking-widest text-[#586B56] uppercase">
             PARIS &bull; MILAN &bull; TOKYO
           </span>
         </div>
       </motion.div>
 
-      {/* CENTRAL BRAND EMBLEM & SLASH SEQUENCE (Autonomous - No Popups, No Buttons) */}
+      {/* CENTRAL BRAND EMBLEM & SLASH SEQUENCE */}
       <AnimatePresence>
         {!isOpen && (
           <motion.div
@@ -231,7 +231,7 @@ export function WardrobeEntrance({
             className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none px-4 text-center"
           >
             {/* Ambient Backlight Halo around Name */}
-            <div className="absolute h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-radial from-[#E0623A]/25 via-[#D4AF37]/15 to-transparent blur-3xl pointer-events-none" />
+            <div className="absolute h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-radial from-[#789575]/25 via-[#E5E8CE]/20 to-transparent blur-3xl pointer-events-none" />
 
             {/* Floating Roman Monogram Crest */}
             <motion.div
@@ -245,7 +245,7 @@ export function WardrobeEntrance({
 
             {/* Monumental Website Name Container with Razor Slash */}
             <div className="relative inline-block my-2">
-              <h1 className="text-5xl sm:text-7xl md:text-8xl font-serif font-light tracking-[0.28em] text-[#1C1917] dark:text-[#F5F2EC] uppercase drop-shadow-md select-none">
+              <h1 className="text-5xl sm:text-7xl md:text-8xl font-serif font-light tracking-[0.28em] text-[#202D1F] uppercase drop-shadow-md select-none">
                 VESTIAR
               </h1>
 
@@ -275,9 +275,9 @@ export function WardrobeEntrance({
                       className="absolute top-1/2 left-1/2 h-[3px] rounded-full pointer-events-none z-20"
                       style={{
                         background:
-                          "linear-gradient(90deg, transparent 0%, #FFFFFF 20%, #FFE6A3 45%, #E0623A 75%, transparent 100%)",
+                          "linear-gradient(90deg, transparent 0%, #FFFFFF 20%, #E5E8CE 45%, #789575 75%, transparent 100%)",
                         boxShadow:
-                          "0 0 20px 4px rgba(224, 98, 58, 0.95), 0 0 45px 8px rgba(255, 230, 163, 0.8)",
+                          "0 0 20px 4px rgba(120, 149, 117, 0.95), 0 0 45px 8px rgba(229, 232, 206, 0.8)",
                       }}
                     />
 
@@ -292,7 +292,7 @@ export function WardrobeEntrance({
                       className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full pointer-events-none z-10"
                       style={{
                         background:
-                          "radial-gradient(circle, rgba(255, 240, 200, 0.9) 0%, rgba(224, 98, 58, 0.5) 40%, transparent 70%)",
+                          "radial-gradient(circle, rgba(229, 232, 206, 0.9) 0%, rgba(120, 149, 117, 0.5) 40%, transparent 70%)",
                         mixBlendMode: "screen",
                       }}
                     />
