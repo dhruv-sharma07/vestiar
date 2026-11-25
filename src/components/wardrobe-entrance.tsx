@@ -15,15 +15,20 @@ export function WardrobeEntrance({
   isOpen,
   onOpen,
   onClose,
-  autoOpenDelay = 1500,
+  autoOpenDelay = 2000,
 }: WardrobeEntranceProps) {
   const [slashTriggered, setSlashTriggered] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const onOpenRef = useRef(onOpen);
   onOpenRef.current = onOpen;
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Manage the entrance sequence with a stable ref so re-renders don't cancel it
   useEffect(() => {
-    if (!isOpen) {
+    if (!isOpen && mounted) {
       setSlashTriggered(false);
 
       const slashTimer = setTimeout(() => {
@@ -39,7 +44,9 @@ export function WardrobeEntrance({
         clearTimeout(openTimer);
       };
     }
-  }, [isOpen, autoOpenDelay]);
+  }, [isOpen, autoOpenDelay, mounted]);
+
+  if (!mounted) return null;
 
   return (
     <div

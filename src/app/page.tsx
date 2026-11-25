@@ -23,6 +23,8 @@ import {
   Layers,
   Orbit,
   Compass,
+  DoorOpen,
+  DoorClosed,
 } from "lucide-react";
 
 export default function Home() {
@@ -40,7 +42,7 @@ export default function Home() {
 
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authReason, setAuthReason] = useState("");
-  const [isDoorsOpen, setIsDoorsOpen] = useState(true);
+  const [isDoorsOpen, setIsDoorsOpen] = useState(false);
   const currentYear = 2026;
 
   // Total closet value in INR
@@ -104,6 +106,20 @@ export default function Home() {
 
                 {/* Primary Route CTAs */}
                 <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
+                  {/* Theatrical Wardrobe Doors Toggle Button */}
+                  <button
+                    onClick={() => setIsDoorsOpen((prev) => !prev)}
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl border border-[#D4AF37]/50 bg-gradient-to-r from-[#FAF6EE] to-[#F5EEDD] dark:from-[#262017] dark:to-[#1E1911] hover:border-[#D4AF37] text-[#7A5A1B] dark:text-[#E8C97E] px-5 py-3 text-xs sm:text-sm font-medium transition-all shadow-xs cursor-pointer group"
+                    title="Experience the theatrical 3D wardrobe doors animation"
+                  >
+                    {isDoorsOpen ? (
+                      <DoorClosed className="h-4 w-4 text-[#D4AF37] group-hover:scale-110 transition-transform" />
+                    ) : (
+                      <DoorOpen className="h-4 w-4 text-[#D4AF37] group-hover:scale-110 transition-transform" />
+                    )}
+                    <span>{isDoorsOpen ? "Close Wardrobe Doors" : "Enter Wardrobe (Open Doors)"}</span>
+                  </button>
+
                   <Link
                     href="/wardrobe"
                     className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-[#1C1917] hover:bg-black dark:bg-[#F5F2EC] dark:hover:bg-white text-white dark:text-[#1C1917] px-6 py-3 text-xs sm:text-sm font-medium transition-all shadow-sm group cursor-pointer"
